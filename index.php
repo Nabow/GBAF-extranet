@@ -17,7 +17,7 @@
     <title>GBAF</title>
 </head>
 <header class="main-header">
-        <img src="img/GBAF-logo-paysage.png" alt="logo-gbaf" title="Groupement Banque Assurance Français">
+        <a href="#"><img src="img/GBAF-logo-paysage.png" alt="logo-gbaf" title="Groupement Banque Assurance Français"></a>
 
         <div class="connexion">
             <img src="https://github.com/google/material-design-icons/blob/master/android/action/perm_identity/materialicons/black/res/drawable-hdpi/baseline_perm_identity_black_36.png?raw=true"
@@ -25,7 +25,7 @@
 
             <div>
                 <p>Jean Claude Dus<br>
-                <a href="deconnect.php">Se déconnecter</a></p>
+                <a href="#">Se déconnecter</a></p>
             </div>
         </div>
 
@@ -45,7 +45,7 @@
                     <p>Aujourd’hui, c’est la première base de données pour chercher ces informations de manière fiable et rapide ou pour donner son avis sur les partenaires et acteurs du secteur bancaire, tels que les associations ou les financeurs solidaires.</p>
                     <p>Ainsi le GBAF donne accès aux salariés des grands groupes français à un point d’entrée unique, répertoriant un grand nombre d’informations sur les partenaires, les acteurs du groupe, les produits et les services bancaires et financiers.</p>
                     <p>Chaque salarié pourra ainsi poster un commentaire et donner son avis.</p>
-                    <a href="a-propos.php">En savoir plus</a>
+                    <a href="#">En savoir plus</a>
             </div>
 
             <!-- <img class src="https://images.unsplash.com/photo-1462206092226-f46025ffe607?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1953&q=80" alt="fédération-bancaire-francaise"> -->
@@ -111,10 +111,11 @@
 
         </div>
 
-            <div class="pagination">
-                <p>Page </p>
-            </div>
     </div>
+    <div class="pagination">
+        <p>Page </p>
+    </div>
+
 
 </body>
 
