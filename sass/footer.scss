@@ -1,0 +1,13 @@
+@import "variables";
+
+
+/* ------------------------FOOTER------------------------ */
+
+.footer-main{
+    
+    background: $color-6;
+    text-align: center;
+    padding: 2rem;
+    margin-top: 3rem ;
+    box-shadow: -3px -3px 6px rgba($color: $color-2, $alpha: 0.3);
+}
