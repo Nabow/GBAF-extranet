@@ -1,0 +1,33 @@
+@import "variables";
+
+
+
+/* ------------------------HEADER------------------------ */
+.header-main{
+    background-color: $color-6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px 10px 20px;
+    font-size: 1rem;
+    @extend %shadow;
+
+    li, a{
+        display: flex;
+        align-items: center ;
+        justify-content: flex-end;
+        text-align: right;
+
+        svg{
+            width: 1rem;
+            height: 1rem;
+            margin-right: 0.3rem;
+        }
+    }
+
+
+}
+.header__logo img{
+    max-height: 5em;
+}
+

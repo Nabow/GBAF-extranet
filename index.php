@@ -7,36 +7,40 @@
     <!--     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
  -->
-    <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="img/GBAF-favicon.png" type="image/x-icon">
-
+    
     <!-- Import de la police d'écriture -->
     <link rel="preconnect" href="https://fonts.gstatic.com"> 
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="style.css">
+    
     <title>GBAF</title>
 </head>
-<header class="main-header">
-        <a href="#"><img src="img/GBAF-logo-paysage.png" alt="logo-gbaf" title="Groupement Banque Assurance Français"></a>
-
-        <div class="connexion">
-            <img src="https://github.com/google/material-design-icons/blob/master/android/action/perm_identity/materialicons/black/res/drawable-hdpi/baseline_perm_identity_black_36.png?raw=true"
-                alt="connect">
-
-            <div>
-                <p>Jean Claude Dus<br>
-                <a href="#">Se déconnecter</a></p>
-            </div>
-        </div>
-
-</header>
 
 <body>
-    <div class="bloc-page">
+    
+    <section class="bloc-page">
 
-        <div class="hero">
+        <!--     HEADER       -->
+        <header class="header-main">
+                <div class="header__logo">
+                    <a href="#"><img src="img/GBAF-logo.jpg" alt="logo-gbaf" title="Groupement Banque Assurance Français"></a>
+                </div>
+        
+                <div class="header__connexion">
+                    <ul>
+        
+                        <li>Jean Claude Dus</li>
+                        <li><a href="#">                    <svg class="icon"><use xlink:href="svg/sprite.svg#deconnecter"></use></svg> Se déconnecter</a></li>
+                    </ul>
+                </div>
+        
+        </header>
+
+        <!--    HERO      -->
+        <div class="hero container">
             
-            <div class="text-hero">
+            <div class="text-hero ">
                 <h1>Extranet du Groupement Banque Assurance Français</h1>
                 <p>La Fédération bancaire française est l’organisation professionnelle qui représente toutes les banques
                     installées en France, et un lobby. Elle compte 340 entreprises bancaires adhérentes de toutes tailles
@@ -51,14 +55,25 @@
             <!-- <img class src="https://images.unsplash.com/photo-1462206092226-f46025ffe607?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1953&q=80" alt="fédération-bancaire-francaise"> -->
         </div>
 
-        <div class="liste-article">
+
+        <section class="liste-article container">
             <h2>Liste des établissements</h2>
 
-            <form action="post">
-                <label for="recherche_nom">Rechercher :</label>
-                <input type="text" name="recherche_nom" id="recherche_nom">
-                <input type="submit" value="Ok">
+            <form action="post" class="formulaire">
+                <label for="recherche_nom">Rechercher : <input type="text" name="recherche_nom" id="recherche_nom"></label>
+                
+                <label for="trier">Trier : 
+                    <select name="choix">
+                            <option value="bonne-note">Mieux noté</option>
+                            <option value="mauvaise-note">Moins bien noté</option>
+                            <option value="A-Z" selected="selected">Croissant</option>
+                            <option value="Z-A">Décroissant</option>
+                    </select>
+                </label>
+                <input class="bouton" type="submit" value="Ok">
             </form>
+
+
             <article>
                 
 
@@ -109,9 +124,9 @@
 
             </article>
 
-        </div>
+        </section>
 
-    </div>
+    </section>
     <div class="pagination">
         <p>Page </p>
     </div>

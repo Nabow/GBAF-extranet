@@ -1,0 +1,93 @@
+@import "variables";
+
+/* REGLES GENERALES */
+body{
+    font-size: $base-font-size;
+    font-family: 'Open Sans', sans-serif;
+    background-color: $color-3 ;
+    // background:  linear-gradient(0deg, rgba(238,238,238,1) 50%, rgba(255,255,255,0.7) 65%, rgba(255,255,255,1) 100%), no-repeat url("img/banque-assurance.jpg" );
+
+}
+
+a{
+    color: $color-1;
+
+    &:visited{
+        color: $color-2;
+    }
+
+    &:hover{
+        color: $color-4;
+    }
+}
+
+h1, h2, h3{
+    font-family: 'Lato', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    color: $color-1;
+}
+
+h1{
+    font-size: 1.8rem;
+    padding: 0.8rem 0;
+}
+
+h2{
+    font-size: 1.6rem;
+    padding: 0.6rem 0;
+}
+
+h3{
+    font-size: 1.4rem;
+    padding: 0.4rem 0;
+}
+
+p{
+    padding: 0.3rem 0;
+    color: $color-2;
+ }
+ input, select, label{
+    line-height: 1em;
+    font-size: 1em;
+}
+
+%shadow{
+    box-shadow: 3px 3px 6px rgba($color: $color-2, $alpha: 0.3);
+}
+
+.container {
+    /* On ajoute une marge sur les cotés de l'écran */
+    padding: 0.8em 0.4em;
+    margin-left: rem(15px);
+    margin-right: rem(15px);
+    /* Et on centre */
+    @media #{$large-up}{
+        margin-right: auto;
+        margin-left: auto;
+        width: $largeur-container;
+    }
+}
+
+.bouton{
+
+    p{
+        background-color: $color-6;
+        color: $color-1;
+        font-weight: 600;
+        text-align: center;
+        border-style: solid;
+        border-color: $color-4;
+        border-radius: 6px;
+        padding: rem(10px) rem(40px);
+        transition: .3s;
+
+        &:hover{
+            background-color: $color-4;
+            color:$color-6;
+            border-color: $color-4;
+            border-radius: 6px;
+            // padding: rem(15px) rem(40px);
+        }
+    }
+}

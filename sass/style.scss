@@ -1,0 +1,108 @@
+@import "libs/reset.scss";
+@import "libs/responsive.scss";
+@import "libs/functions.scss";
+@import "libs/mixins.scss";
+@import "variables";
+@import "main";
+@import "header";
+
+// TESTS BOUCLE COULEUR VARIABLES
+// $colors:
+//     #260c1aff,
+//     #6e6a6fff,
+//     rgba(110, 106, 111, 0.3),
+//     #d4d2d5ff,
+//     #7f0000;
+// $i:1;
+
+// @each $color1 in $colors{
+    //             @debug $couleur= $color1;        
+    //         // @debug "$color-"#{$i}":" #{$color};
+    //         // @debug#{$i = $i + 1}
+    // }
+    
+
+/* ------------------------HERO------------------------ */
+.hero{
+    margin-top: 3em;
+    margin-bottom: 3em;
+    background-color: rgba($color: $color-2, $alpha: 0.3) ;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.text-hero{
+    a{
+        display: inline-block;
+        float: right;
+    }
+
+    &:last-child{
+        margin-bottom: 2em;
+    }
+}
+
+/* ------------------------TITRE + FORMULAIRE------------------------ */
+
+.formulaire{
+    display: flex;
+    justify-content: center;
+    margin: 1em auto;
+    flex-wrap: wrap;
+    align-content: center;
+    
+    *{
+        margin: 0.3em;
+    }
+}
+
+
+/* ------------------------BLOC ETABLISSEMENT------------------------ */
+
+.etablissement{
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    background-color: $color-6;
+    padding: 20px;
+    margin: 25px 0;
+    transition: background-color .5s ;
+    @extend %shadow;
+
+    
+    *{
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        padding: 10px;
+    }
+    
+    &:hover{
+        background-color: rgba($color: $color-2, $alpha: 0.1);
+    }
+    
+    .logo{
+        max-width: 40%;
+        transition: 0.5s;
+
+        &:hover{
+            transform: scale(1.05);
+        }
+    }
+
+    
+    @media #{$large-up}{
+        flex-direction: row;
+        .bouton{
+            align-self: flex-end;
+            margin: 0;
+        }
+
+    }
+}
+
+
+
+.pagination p{
+    text-align: center;   
+   } 
