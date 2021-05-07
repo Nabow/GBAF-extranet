@@ -42,33 +42,28 @@
     }
 }
 
-/* ------------------------TITRE + FORMULAIRE------------------------ */
+/* ------------------------TITRE H2 MAIN + FORMULAIRE de RECHERCHE------------------------ */
 
 .formulaire{
     display: flex;
     justify-content: center;
-    margin: 1em auto;
+    margin: 1rem auto;
     flex-wrap: wrap;
     align-content: center;
     
     *{
-        margin: 0.3em;
+        margin: 0.3rem;
     }
 }
 
 
 /* ------------------------BLOC ETABLISSEMENT------------------------ */
 
+
 .etablissement{
-    text-decoration: none;
+    @extend .box;
     display: flex;
     flex-direction: column;
-    background-color: $color-6;
-    padding: 20px;
-    margin: 25px 0;
-    transition: background-color .5s ;
-    @extend %shadow;
-
     
     *{
         display: flex;
@@ -76,11 +71,7 @@
         margin: auto;
         padding: 10px;
     }
-    
-    &:hover{
-        background-color: rgba($color: $color-2, $alpha: 0.1);
-    }
-    
+        
     .logo{
         max-width: 40%;
         transition: 0.5s;
@@ -106,3 +97,104 @@
 .pagination p{
     text-align: center;   
    } 
+
+
+
+
+.italic{
+    font-style: italic;
+    margin-bottom: 1em;
+    font-size: 0.8em;
+}
+
+
+
+.formulaire-com{
+    
+    display: grid;
+    grid-template-columns: 1fr 1fr  repeat(2,rem(110px));
+    grid-template-rows: auto;
+    grid-template-areas: 
+    " . . . vote"
+    "form form form form";
+    column-gap: 1rem;
+    
+    textarea{
+        width: 100%;
+        min-height: 5em;
+        resize: vertical;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+
+    form{
+        grid-area: form;
+    }
+    .bouton{
+        padding: 0.3rem 0.6rem;
+    }
+    @media #{$large-up}{
+        // display: flex;
+        // flex-direction: row-reverse;
+        // justify-content: space-between;
+        grid-template-areas: 
+        " form form . vote"
+        "form form . .";
+        textarea{
+            min-height: 8em;
+        }
+    }
+
+
+}
+
+.vote{
+    
+    *{
+        text-decoration: none;
+    }
+    grid-area: vote;
+    display: inline-block;
+    background: $color-6;
+    padding: 0.5em;
+    @extend %shadow;
+    border: 1px solid #999;
+    border-radius: 1em;
+    &[choix="non"]{
+        .vote-non{
+                color: red;
+            }
+    }
+
+    &[choix="oui"]{
+        .vote-oui{
+                text-decoration: none;
+                color: green;
+            }
+        }
+        
+   svg{
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.3rem;
+    }
+}
+
+
+.liste-com{
+    .auteur{
+        margin-top: 1em;
+        font-style: italic;
+        strong{
+            font-weight: 600;
+            font-style: normal;
+        }
+    }
+    .message{
+        padding-bottom: 0.9em;
+        border-bottom: 1px solid #999;
+    }
+    .commentaire-auteur *{
+        color: $color-4;
+    }
+}

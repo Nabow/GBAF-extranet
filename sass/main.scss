@@ -46,10 +46,14 @@ h3{
 p{
     padding: 0.3rem 0;
     color: $color-2;
- }
- input, select, label{
-    line-height: 1em;
-    font-size: 1em;
+}
+input, select, label{
+    line-height: 1rem;
+    font-size: 1rem;
+}
+input, select{
+    padding:0 0.6rem ;
+    border:1px solid #999;
 }
 
 %shadow{
@@ -89,5 +93,18 @@ p{
             border-radius: 6px;
             // padding: rem(15px) rem(40px);
         }
+    }
+}
+
+
+.box{
+    text-decoration: none;
+    background-color: $color-6;
+    padding: 20px;
+    margin: 25px 0;
+    transition: background-color .5s ;
+    @extend %shadow;
+    &:hover{
+        background-color: rgba($color: $color-2, $alpha: 0.1);
     }
 }

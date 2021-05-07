@@ -1,47 +1,56 @@
 @charset "UTF-8";
-/* reset CSS */
-html, body, p, ol, ul, li, dl, dt, dd, blockquote, figure, fieldset, legend, textarea, pre, iframe, hr, h1, h2, h3, h4, h5, h6 {
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
   margin: 0;
   padding: 0;
-}
-
-h1, h2, h3, h4, h5, h6 {
+  border: 0;
   font-size: 100%;
-  font-weight: normal;
+  font: inherit;
+  vertical-align: baseline;
 }
 
-ul {
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
   list-style: none;
 }
 
-button, input, select {
-  margin: 0;
+blockquote, q {
+  quotes: none;
 }
 
-html {
-  box-sizing: border-box;
-}
-
-*, *::before, *::after {
-  box-sizing: inherit;
-}
-
-img, video {
-  height: auto;
-  max-width: 100%;
-}
-
-iframe {
-  border: 0;
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
 }
 
 table {
   border-collapse: collapse;
   border-spacing: 0;
-}
-
-td, th {
-  padding: 0;
 }
 
 /* DEFINITION DES VARIABLES */
@@ -91,11 +100,16 @@ p {
 }
 
 input, select, label {
-  line-height: 1em;
-  font-size: 1em;
+  line-height: 1rem;
+  font-size: 1rem;
 }
 
-.etablissement, .header-main {
+input, select {
+  padding: 0 0.6rem;
+  border: 1px solid #999;
+}
+
+.vote, .header-main, .box, .etablissement {
   box-shadow: 3px 3px 6px rgba(110, 106, 111, 0.3);
 }
 
@@ -132,6 +146,17 @@ input, select, label {
   border-radius: 6px;
 }
 
+.box, .etablissement {
+  text-decoration: none;
+  background-color: #FFF;
+  padding: 20px;
+  margin: 25px 0;
+  transition: background-color 0.5s;
+}
+.box:hover, .etablissement:hover {
+  background-color: rgba(110, 106, 111, 0.1);
+}
+
 /* DEFINITION DES VARIABLES */
 /* ------------------------HEADER------------------------ */
 .header-main {
@@ -161,6 +186,7 @@ input, select, label {
 /* DEFINITION DES VARIABLES */
 /* ------------------------FOOTER------------------------ */
 .footer-main {
+  font-size: 0.8em;
   background: #FFF;
   text-align: center;
   padding: 2rem;
@@ -184,36 +210,28 @@ input, select, label {
   margin-bottom: 2em;
 }
 
-/* ------------------------TITRE + FORMULAIRE------------------------ */
+/* ------------------------TITRE H2 MAIN + FORMULAIRE de RECHERCHE------------------------ */
 .formulaire {
   display: flex;
   justify-content: center;
-  margin: 1em auto;
+  margin: 1rem auto;
   flex-wrap: wrap;
   align-content: center;
 }
 .formulaire * {
-  margin: 0.3em;
+  margin: 0.3rem;
 }
 
 /* ------------------------BLOC ETABLISSEMENT------------------------ */
 .etablissement {
-  text-decoration: none;
   display: flex;
   flex-direction: column;
-  background-color: #FFF;
-  padding: 20px;
-  margin: 25px 0;
-  transition: background-color 0.5s;
 }
 .etablissement * {
   display: flex;
   flex-direction: column;
   margin: auto;
   padding: 10px;
-}
-.etablissement:hover {
-  background-color: rgba(110, 106, 111, 0.1);
 }
 .etablissement .logo {
   max-width: 40%;
@@ -234,6 +252,81 @@ input, select, label {
 
 .pagination p {
   text-align: center;
+}
+
+.italic {
+  font-style: italic;
+  margin-bottom: 1em;
+  font-size: 0.8em;
+}
+
+.formulaire-com {
+  display: grid;
+  grid-template-columns: 1fr 1fr repeat(2, 6.4705882353rem);
+  grid-template-rows: auto;
+  grid-template-areas: " . . . vote" "form form form form";
+  column-gap: 1rem;
+}
+.formulaire-com textarea {
+  width: 100%;
+  min-height: 5em;
+  resize: vertical;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+.formulaire-com form {
+  grid-area: form;
+}
+.formulaire-com .bouton {
+  padding: 0.3rem 0.6rem;
+}
+@media only screen and (min-width: 1030px) {
+  .formulaire-com {
+    grid-template-areas: " form form . vote" "form form . .";
+  }
+  .formulaire-com textarea {
+    min-height: 8em;
+  }
+}
+
+.vote {
+  grid-area: vote;
+  display: inline-block;
+  background: #FFF;
+  padding: 0.5em;
+  border: 1px solid #999;
+  border-radius: 1em;
+}
+.vote * {
+  text-decoration: none;
+}
+.vote[choix=non] .vote-non {
+  color: red;
+}
+.vote[choix=oui] .vote-oui {
+  text-decoration: none;
+  color: green;
+}
+.vote svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.3rem;
+}
+
+.liste-com .auteur {
+  margin-top: 1em;
+  font-style: italic;
+}
+.liste-com .auteur strong {
+  font-weight: 600;
+  font-style: normal;
+}
+.liste-com .message {
+  padding-bottom: 0.9em;
+  border-bottom: 1px solid #999;
+}
+.liste-com .commentaire-auteur * {
+  color: #f87060ff;
 }
 
 /*# sourceMappingURL=style.css.map */
