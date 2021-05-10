@@ -1,3 +1,10 @@
+<?php session_start(); 
+    include("php/functions.php");
+    include("php/connect.php");
+    
+        verifConnexion();
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -65,36 +72,6 @@
 
             <article>
                 
-
-                    <a class="etablissement" href="">
-                        <img class="logo" src="img/Dsa_france.png" alt="">
-                        <div class="description">
-                            <h3>DSA France</h3>
-                            <p>Dsa France accélère la croissance du territoire et s’engage avec les collectivités territoriales.
-                            Nous accompagnons les entreprises dans les étapes clés de leur évolution.
-                            Notre philosophie : s’adapter à chaque entreprise.
-                            Nous les accompagnons pour voir plus grand et plus loin et proposons des solutions de financement adaptées à chaque étape de la vie des entreprises
-                            </p>
-                            <div class="bouton">
-                                <p >Lire la suite</p>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a class="etablissement" href="">
-                        <img class="logo" src="img/CDE.png" alt="">
-                        <div class="description">
-                            <h3>DSA France</h3>
-                            <p>Dsa France accélère la croissance du territoire et s’engage avec les collectivités territoriales.
-                            Nous accompagnons les entreprises dans les étapes clés de leur évolution.
-                            Notre philosophie : s’adapter à chaque entreprise.
-                            Nous les accompagnons pour voir plus grand et plus loin et proposons des solutions de financement adaptées à chaque étape de la vie des entreprises
-                            </p>
-                            <div class="bouton">
-                                <p >Lire la suite</p>
-                            </div>
-                        </div>
-                    </a>
 
                     <a class="etablissement" href="">
                         <img class="logo" src="img/Dsa_france.png" alt="">

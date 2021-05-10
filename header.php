@@ -5,9 +5,16 @@
         
                 <div class="header__connexion">
                     <ul>
-        
-                        <li>Jean Claude Dus</li>
-                        <li><a href="connect.php">                    <svg class="icon"><use xlink:href="svg/sprite.svg#deconnecter"></use></svg> Se déconnecter</a></li>
+                        <?php include("php/functions.php");
+                        echo verifConnexion();
+                        if(verifConnexion()){ ?>
+                            <li><?= $_COOKIE['prenom'] . " " . $_COOKIE['nom']; ?></li>
+                            <li><a href="connect.php"><svg class="icon"><use xlink:href="svg/sprite.svg#deconnecter"></use></svg> Se déconnecter</a></li>
+                        <?php } else {?>
+                            <li></li>
+                            <li><a href="connect.php"><svg class="icon"><use xlink:href="svg/sprite.svg#connecter"></use></svg> Se connecter</a></li>
+                        <?php } ?>
+
                     </ul>
                 </div>
         
