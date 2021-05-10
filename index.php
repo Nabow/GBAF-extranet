@@ -27,7 +27,7 @@
 
 
         <!--    HERO      -->
-        <div class="hero container">
+        <div class="hero container box">
             
             <div class="text-hero ">
                 <h1>Extranet du Groupement Banque Assurance Français</h1>

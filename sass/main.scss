@@ -52,8 +52,9 @@ input, select, label{
     font-size: 1rem;
 }
 input, select{
-    padding:0 0.6rem ;
+    padding:0.4em 0.6rem ;
     border:1px solid #999;
+    border-radius: 4px;
 }
 
 %shadow{
@@ -75,25 +76,33 @@ input, select{
 
 .bouton{
 
-    p{
+    
         background-color: $color-6;
-        color: $color-1;
+        color: $color-2;
+        border: 0.2em solid $color-4;
+        font-size: 1rem;
         font-weight: 600;
         text-align: center;
-        border-style: solid;
-        border-color: $color-4;
-        border-radius: 6px;
-        padding: rem(10px) rem(40px);
+        border-radius: rem(6px);
+        padding: rem(7px) rem(20px);
         transition: .3s;
+        
+        *{
+            color: $color-2;
+
+        }
 
         &:hover{
             background-color: $color-4;
             color:$color-6;
             border-color: $color-4;
-            border-radius: 6px;
-            // padding: rem(15px) rem(40px);
+            cursor: pointer;
+            *{
+                color:$color-6;
+
+            }
         }
-    }
+    
 }
 
 
@@ -101,10 +110,8 @@ input, select{
     text-decoration: none;
     background-color: $color-6;
     padding: 20px;
-    margin: 25px 0;
-    transition: background-color .5s ;
+    margin: 25px auto;
+    transition: .5s ;
     @extend %shadow;
-    &:hover{
-        background-color: rgba($color: $color-2, $alpha: 0.1);
-    }
+
 }

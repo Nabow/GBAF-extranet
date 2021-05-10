@@ -105,11 +105,12 @@ input, select, label {
 }
 
 input, select {
-  padding: 0 0.6rem;
+  padding: 0.4em 0.6rem;
   border: 1px solid #999;
+  border-radius: 4px;
 }
 
-.vote, .header-main, .box, .etablissement {
+.onglet p, .vote, .header-main, .box, .box-connexion, .onglet, .etablissement {
   box-shadow: 3px 3px 6px rgba(110, 106, 111, 0.3);
 }
 
@@ -128,33 +129,36 @@ input, select {
   }
 }
 
-.bouton p {
+.bouton {
   background-color: #FFF;
-  color: #260c1aff;
+  color: #6e6a6fff;
+  border: 0.2em solid #f87060ff;
+  font-size: 1rem;
   font-weight: 600;
   text-align: center;
-  border-style: solid;
-  border-color: #f87060ff;
-  border-radius: 6px;
-  padding: 0.5882352941rem 2.3529411765rem;
+  border-radius: 0.3529411765rem;
+  padding: 0.4117647059rem 1.1764705882rem;
   transition: 0.3s;
 }
-.bouton p:hover {
+.bouton * {
+  color: #6e6a6fff;
+}
+.bouton:hover {
   background-color: #f87060ff;
   color: #FFF;
   border-color: #f87060ff;
-  border-radius: 6px;
+  cursor: pointer;
+}
+.bouton:hover * {
+  color: #FFF;
 }
 
-.box, .etablissement {
+.box, .box-connexion, .onglet, .etablissement {
   text-decoration: none;
   background-color: #FFF;
   padding: 20px;
-  margin: 25px 0;
-  transition: background-color 0.5s;
-}
-.box:hover, .etablissement:hover {
-  background-color: rgba(110, 106, 111, 0.1);
+  margin: 25px auto;
+  transition: 0.5s;
 }
 
 /* DEFINITION DES VARIABLES */
@@ -198,7 +202,6 @@ input, select {
 .hero {
   margin-top: 3em;
   margin-bottom: 3em;
-  background-color: rgba(110, 106, 111, 0.3);
   padding: 20px;
   overflow: hidden;
 }
@@ -226,6 +229,9 @@ input, select {
 .etablissement {
   display: flex;
   flex-direction: column;
+}
+.etablissement:hover {
+  background-color: rgba(110, 106, 111, 0.1);
 }
 .etablissement * {
   display: flex;
@@ -277,9 +283,6 @@ input, select {
 .formulaire-com form {
   grid-area: form;
 }
-.formulaire-com .bouton {
-  padding: 0.3rem 0.6rem;
-}
 @media only screen and (min-width: 1030px) {
   .formulaire-com {
     grid-template-areas: " form form . vote" "form form . .";
@@ -327,6 +330,82 @@ input, select {
 }
 .liste-com .commentaire-auteur * {
   color: #f87060ff;
+}
+
+.box-connexion, .onglet {
+  margin-top: 0;
+}
+@media only screen and (min-width: 1030px) {
+  .box-connexion, .onglet {
+    width: 600px;
+  }
+  .box-connexion .connexion, .onglet .connexion {
+    width: 85%;
+  }
+}
+
+.onglet {
+  box-shadow: 0px 0px 0px;
+  margin-bottom: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  background-color: transparent;
+}
+.onglet p {
+  padding: 1.1764705882rem;
+  text-align: center;
+  width: 48%;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+.onglet .actif {
+  background-color: #FFF;
+}
+.onglet .inactif:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+@media only screen and (min-width: 1030px) {
+  .onglet {
+    padding: 0 1.1764705882rem;
+    width: 640px;
+  }
+}
+
+.connexion {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+}
+.connexion label {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+.connexion .bouton {
+  display: block;
+  text-align: center;
+  margin: 1.5em auto;
+}
+.connexion .mdp-box {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  border: 1px solid #999;
+  border-radius: 4px;
+}
+.connexion .mdp-box #mdp {
+  border: none;
+  grid-column: 1/span 9;
+}
+.connexion .mdp-box svg {
+  grid-column: 10/span 1;
+  cursor: pointer;
+  margin: auto;
+  height: 2em;
+  width: 2em;
+  color: #6e6a6fff;
 }
 
 /*# sourceMappingURL=style.css.map */

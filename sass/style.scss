@@ -27,7 +27,7 @@
 .hero{
     margin-top: 3em;
     margin-bottom: 3em;
-    background-color: rgba($color: $color-2, $alpha: 0.3) ;
+    // background-color: rgba($color: $color-2, $alpha: 0.3) ;
     padding: 20px;
     overflow: hidden;
 }
@@ -64,7 +64,9 @@
     @extend .box;
     display: flex;
     flex-direction: column;
-    
+    &:hover{
+        background-color: rgba($color: $color-2, $alpha: 0.1);
+    }
     *{
         display: flex;
         flex-direction: column;
@@ -130,9 +132,7 @@
     form{
         grid-area: form;
     }
-    .bouton{
-        padding: 0.3rem 0.6rem;
-    }
+
     @media #{$large-up}{
         // display: flex;
         // flex-direction: row-reverse;
@@ -196,5 +196,86 @@
     }
     .commentaire-auteur *{
         color: $color-4;
+    }
+}
+
+.box-connexion{
+    @extend .box;
+    margin-top: 0;
+    @media #{$large-up}{
+        width: 600px;
+        
+        .connexion{
+            width: 85%;
+        }
+    }
+}
+.onglet{
+    @extend .box-connexion;
+    box-shadow: 0px 0px 0px;
+    margin-bottom: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    background-color: transparent;
+    p{
+        // box-shadow: 3px 3px 6px rgba($color: $color-2, $alpha: 0.1);
+        @extend %shadow;
+        padding: rem(20px);
+        text-align: center;
+        width: 48%;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+    .actif{
+        background-color: $color-6;
+    }
+    .inactif:hover{
+        cursor: pointer;
+        background-color: rgba($color: $color-6, $alpha: 0.2);
+    }
+    @media #{$large-up}{
+        padding: 0 rem(20px);
+        width: 640px;
+    }
+
+}
+
+.connexion{
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    // width: 70%;
+    label{
+        margin-top: 1em ;
+        margin-bottom: 0.5em;
+    }
+    .bouton{
+        display: block;
+        text-align: center;
+        margin: 1.5em auto;
+    }
+
+    .mdp-box{
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        border: 1px solid #999;
+        border-radius: 4px;
+        #mdp{
+            border: none;
+            grid-column: 1 / span 9;
+        }
+        
+        svg{
+            grid-column: 10 / span 1;
+            cursor: pointer;
+            margin: auto;
+            height: 2em;
+            width: 2em;
+            color: $color-2;
+        }
+
     }
 }

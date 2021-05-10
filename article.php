@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     
-    <title>GBAF</title>
+    <title>GBAF - établissement</title>
 </head>
 
 <body>
@@ -29,8 +29,8 @@
 
             <article>
                 
-
-                    <a class="etablissement" href="">
+                    <!-- FICHE ARTICLE DE L'ACTEUR BANCAIRE -->
+                    <div class="etablissement" href="">
                         <div class="description">
                             <h1>DSA France</h1>
                             <img class="logo" src="img/Dsa_france.png" alt="">
@@ -40,25 +40,28 @@
                             Nous les accompagnons pour voir plus grand et plus loin et proposons des solutions de financement adaptées à chaque étape de la vie des entreprises
                             </p>
                         </div>
-                    </a>
+                    </div>
 
             </article>
 
+            <!-- BOITE DES COMMENTAIRES -->
             <div class="commentaires box">
                 <h2>Commentaires</h2>
                 <p class="italic">(1 commentaire et 1 vote par personne)</p>
 
                 <div class="formulaire-com">
                 
+                <!-- BOITE DE VOTE -->
                     <div class="vote" choix="oui">
-                            <a href="#" class="vote-oui">
+                            <a href="article.php?vote=1" class="vote-oui">
                                 <svg class="icon"><use xlink:href="svg/sprite.svg#vote-oui"></use></svg>0
                             </a>
-                            <a href="#" class="vote-non">
+                            <a href="article.php?vote=0" class="vote-non">
                                 <svg class="icon"><use xlink:href="svg/sprite.svg#vote-non"></use></svg>0
                             </a>
                     </div>
 
+                <!-- FORMULAIRE DE SAISIE DES COMMENTAIRES -->
                     <form action="article.php" method="post">
                         <label for="commentaire">Saisir un commentaire<br>
                             <textarea name="commentaire" id="commentaire" >Voici un test</textarea>
@@ -67,6 +70,7 @@
                     </form>
                 </div>
 
+            <!-- LISTE DES COMMENTAIRES DEJA ECRITS -->
                 <div class="liste-com">
 
                     <div class="commentaire-n">
