@@ -1,3 +1,10 @@
+<?php session_start(); 
+     include_once "php/functions.php";
+     include_once "php/bdd.php";
+    
+     reDirConnect(verifIdConnexion($db));
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -23,24 +30,52 @@
 
 
         <!--     HEADER       -->
-        <?php include("header.php"); ?>
+        <?php include "header.php" ; ?>
 
         <section class="liste-article container">
 
             <article>
                 
+            <?php 
+                try
+                {
+                    $bdd = new PDO('mysql:host=localhost;dbname=gbaf;charset=utf8;port=3307', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+                }
+                catch (Exception $e)
+                {
+                        die('Erreur : ' . $e->getMessage());
+                }    
+                
+                
+                if (isset($_GET['id_acteur'])) {
+                    $acteur = (int)$_GET['id_acteur'];
+                } else { 
+                    reDirConnect(true) ;
+                }
+
+                    $etablissement = $bdd->prepare('SELECT * FROM acteurs WHERE id_acteur = ?');
+                    // var_dump($acteur, $nom_recherche ) ;
+                    
+                    $etablissement->execute(array( $acteur ));
+
+
+                    while($donnees = $etablissement->fetch())
+                    { 
+                ?>
+
                     <!-- FICHE ARTICLE DE L'ACTEUR BANCAIRE -->
-                    <div class="etablissement" href="">
+                    <div class="etablissement" >
                         <div class="description">
-                            <h1>DSA France</h1>
-                            <img class="logo" src="img/Dsa_france.png" alt="">
-                            <p>Dsa France accélère la croissance du territoire et s’engage avec les collectivités territoriales.
-                            Nous accompagnons les entreprises dans les étapes clés de leur évolution.
-                            Notre philosophie : s’adapter à chaque entreprise.
-                            Nous les accompagnons pour voir plus grand et plus loin et proposons des solutions de financement adaptées à chaque étape de la vie des entreprises
-                            </p>
+                            <h1><?= $donnees['acteur'] ?></h1>
+                            <img class="logo" src="img/<?= $donnees['logo'] ?>" alt="">
+                            <p><?= $donnees['description'] ?></p>
                         </div>
                     </div>
+                <?php }
+                $etablissement->closeCursor();
+                ?>
+
+
 
             </article>
 
@@ -64,7 +99,7 @@
                 <!-- FORMULAIRE DE SAISIE DES COMMENTAIRES -->
                     <form action="article.php" method="post">
                         <label for="commentaire">Saisir un commentaire<br>
-                            <textarea name="commentaire" id="commentaire" >Voici un test</textarea>
+                            <textarea name="commentaire" id="commentaire" ></textarea>
                         </label>
                         <p><input class="bouton" type="submit" value="Envoyer"></p>
                     </form>
@@ -90,7 +125,7 @@
     </section>
 
 
-    <?php include("footer.php"); ?>
+    <?php include "footer.php" ; ?>
 
 </body>
 

@@ -219,7 +219,7 @@
     display: flex;
     justify-content: space-between;
     background-color: transparent;
-    p{
+    a{
         // box-shadow: 3px 3px 6px rgba($color: $color-2, $alpha: 0.1);
         @extend %shadow;
         padding: rem(20px);
@@ -227,13 +227,13 @@
         width: 48%;
         border-top-left-radius: 15px;
         border-top-right-radius: 15px;
+        text-decoration: none;
     }
     .actif{
         background-color: $color-6;
     }
     .inactif:hover{
-        cursor: pointer;
-        background-color: rgba($color: $color-6, $alpha: 0.2);
+        background-color: rgba($color: $color-6, $alpha: 0.4);
     }
     @media #{$large-up}{
         padding: 0 rem(20px);
@@ -258,12 +258,12 @@
         margin: 1.5em auto;
     }
 
-    .mdp-box{
+    .password-box{
         display: grid;
         grid-template-columns: repeat(10, 1fr);
         border: 1px solid #999;
         border-radius: 4px;
-        #mdp{
+        #password{
             border: none;
             grid-column: 1 / span 9;
         }

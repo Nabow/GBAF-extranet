@@ -1,3 +1,17 @@
+<?php session_start(); 
+    include_once "php/functions.php";
+    
+    //    reDir(verifConnexion()) ;
+
+    // isset($_GET['type'])?$page_inscription = true:$page_inscription=false;
+
+    
+    include_once "php/bdd.php";
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -23,59 +37,104 @@
 
 
         <!--     HEADER       -->
-        <?php include("header.php"); ?>
+        <?php include "header.php"; ?>
 
         <section class="container">
                 
-            
-            <div class="onglet">
 
-                <p class="actif">Connexion</p>
-                <p class="inactif">Inscription</p>
+            
+<!-- ONGLETS -->
+            <div class="onglet">
+                <?php if($page_inscription){ ?> 
+                    <a href="connect.php" class="inactif">Connexion</a>
+                    <a href="connect.php?type=1" class="actif">Inscription</a>
+                <?php }else{ ?>
+                    <a href="connect.php" class="actif">Connexion</a>
+                    <a href="connect.php?type=1" class="inactif">Inscription</a>
+                <?php } ?>
+
 
             </div>
-            <div class="box-connexion">
-                        <h1>Création d'un compte utilisateur</h1>
 
-                <!-- <div class="formulaire-com"> -->
-                
-                    <!-- FORMULAIRE DE SAISIE DES COMMENTAIRES -->
-                    <form class="connexion" action="connect.php" method="post">
+<!-- TITRE -->
+            <div class="box-connexion">
+               <?php if($page_inscription){ ?> <h1>Création d'un compte utilisateur</h1> <?php }else{ ?><h1>Connexion à votre compte</h1><?php } 
+
+               if(verifCompletion()===false) { ?> <p class="warning">* Merci de compléter tous les champs</p> <?php } 
+
+               
+               if(!empty($connectErr) || !empty($subtErr)) { ?> <p class="warning"><?= $compteErr . $subErr ?></p> <?php } ?> 
+               
+
+<!-- FORMULAIRE DE SAISIE DES COMMENTAIRES -->
+                    
+                    <form class="connexion" action="connect.php<?php if ($page_inscription){ echo '?type=1'; } ?>" method="post">
                         
-                        <label for="username">Nom d'utilisateur</label>
-                        <input type="text" name="username" id="username">
-                        <label for="mdp">Mot de passe</label>
-                        <div class="mdp-box">
-                            <input type="password" name="mdp" id="mdp">
+                        <!-- Champ email -->
+                        <label for="email">Email 
+                            <?php if(!empty($emailErr)) { ?> <span class="warning"> * <?= $emailErr ?> </span> <?php ; }  ?>
+                        </label>
+                        <input type="email" name="email" id="email" value="<?= $email ?>">
+                        
+                        <!-- Champ password -->
+                        <label for="password">Mot de passe
+                            <?php if(!empty($passwordErr)) { ?> <span class="warning"> * <?= $passwordErr ?> </span> <?php ; }  ?>
+                        </label>
+                        <div class="password-box">
+                            <input type="password" name="password" id="password" value="<?= $password ?>">
                             <svg class="icon unmask"><use xlink:href="svg/sprite.svg#visibility_on"></use></svg>
                         </div>
-                        <label for="name">Nom</label>
-                        <input type="text" name="name" id="name">
-                        <label for="first_name">Prénom</label>
-                        <input type="text" name="first_name" id="first_name">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" id="email">
-                        <label for="question">Question secrète</label>
-                        <select name="question" id="question">
-                                <option value="" selected="">--- Selectionner une question ---</option>
-                                <option value="Quel est le nom de mon premier animal domestique ?">Quel est le nom de mon premier animal domestique ?
-                        </option>
-                                <option value="Quel est le nom du pays que j’aimerais le plus visiter ?">Quel est le nom du pays que j’aimerais le plus visiter ?
-                        </option>
-                                <option value="Quel est le nom du personnage historique que j’admire le plus ?">Quel est le nom du personnage historique que j’admire le plus ?
-                        </option>
-                                <option value="Quelle est la  marque du premier véhicule que j’ai conduit ?">Quelle est la  marque du premier véhicule que j’ai conduit ?
-                        </option>
-                                <option value="Quelle est votre couleur préférée ?">Quelle est votre couleur préférée ?</option>
 
-                                <option value="Quelle est votre équipe sportive favorite ?">Quelle est votre équipe sportive favorite ?</option>
-                                <option value="Quel était le métier de votre grand-père ?">Quel était le métier de votre grand-père ?</option>
-                        </select>
-                        <label for="answer">Réponse</label>
-                        <input type="text" name="answer" id="answer">
-                        <p><button class="bouton" type="submit">Inscription</button></p>
+                        <?php if ($page_inscription){
+                            ?>
+
+                                <!-- Champ nom -->
+                                <label for="name">Nom
+                                    <?php if(!empty($nameErr)) { ?> <span class="warning"> * <?= $nameErr ?> </span> <?php ; }  ?>
+                                </label>
+                                <input type="text" name="name" id="name" value="<?= $name ?>">
+
+                                <!-- Champ prénom -->
+                                <label for="first_name">Prénom
+                                    <?php if(!empty($first_nameErr)) { ?> <span class="warning"> * <?= $first_nameErr ?> </span> <?php ; }  ?>
+                                </label>
+                                <input type="text" name="first_name" id="first_name" value="<?= $first_name ?>">
+
+                                <!-- Sélecteur question -->
+                                <label for="question">Question secrète
+                                    <?php if(!empty($questionErr)) { ?> <span class="warning"> * <?= $questionErr ?> </span> <?php ; }  ?>
+                                </label>
+                                <select name="question" id="question">
+                                        <option value="" selected="<?= $question ?>">--- Selectionnez une question ---</option>
+                                        <option value="Quel est le nom de mon premier animal domestique ?">Quel est le nom de mon premier animal domestique ?
+                                </option>
+                                        <option value="Quel est le nom du pays que j’aimerais le plus visiter ?">Quel est le nom du pays que j’aimerais le plus visiter ?
+                                </option>
+                                        <option value="Quel est le nom du personnage historique que j’admire le plus ?">Quel est le nom du personnage historique que j’admire le plus ?
+                                </option>
+                                        <option value="Quelle est la  marque du premier véhicule que j’ai conduit ?">Quelle est la  marque du premier véhicule que j’ai conduit ?
+                                </option>
+                                        <option value="Quelle est votre couleur préférée ?">Quelle est votre couleur préférée ?</option>
+
+                                        <option value="Quelle est votre équipe sportive favorite ?">Quelle est votre équipe sportive favorite ?</option>
+                                        <option value="Quel était le métier de votre grand-père ?">Quel était le métier de votre grand-père ?</option>
+                                </select>
+
+                                <!-- Champ réponse -->
+                                <label for="answer">Réponse
+                                    <?php if(!empty($reponseErr)) { ?> <span class="warning"> * <?= $reponseErr ?> </span> <?php ; }  ?>
+                                </label>
+                                <input type="text" name="answer" id="answer" value="<?= $reponse ?>" >
+
+                                <!-- Bouton Inscription -->
+                                <p><button class="bouton" name="ok" type="submit">Inscription</button></p>
+                                
+                                <?php
+                        }else{?>
+                            <!-- Bouton Connexion -->
+                            <p><button class="bouton" name="ok" type="submit">Connexion</button></p>
+                        <?php } ?>
                     </form>
-                <!-- </div> -->
 
             </div>
 
@@ -83,11 +142,11 @@
 
     </section>
 
+<!-- FOOTER -->
+    <?php include "footer.php"; ?>
 
-    <?php include("footer.php"); ?>
 
-
-    <script>
+    <!-- <script>
         $('.unmask').on('click', function(){
         
         if($(this).prev('input').attr('type') == 'password')
@@ -98,7 +157,7 @@
         
         return false;
         });
-    </script>
+    </script> -->
 </body>
 
 </html>

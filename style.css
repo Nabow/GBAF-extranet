@@ -97,6 +97,7 @@ h3 {
 p {
   padding: 0.3rem 0;
   color: #6e6a6fff;
+  line-height: 1.3rem;
 }
 
 input, select, label {
@@ -110,7 +111,7 @@ input, select {
   border-radius: 4px;
 }
 
-.onglet p, .vote, .header-main, .box, .box-connexion, .onglet, .etablissement {
+.onglet a, .vote, .header-main, .box, .box-connexion, .onglet, .etablissement {
   box-shadow: 3px 3px 6px rgba(110, 106, 111, 0.3);
 }
 
@@ -159,6 +160,13 @@ input, select {
   padding: 20px;
   margin: 25px auto;
   transition: 0.5s;
+}
+
+.warning {
+  color: red;
+  font-style: italic;
+  text-align: center;
+  font-size: 0.8rem;
 }
 
 /* DEFINITION DES VARIABLES */
@@ -353,19 +361,19 @@ input, select {
   justify-content: space-between;
   background-color: transparent;
 }
-.onglet p {
+.onglet a {
   padding: 1.1764705882rem;
   text-align: center;
   width: 48%;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
+  text-decoration: none;
 }
 .onglet .actif {
   background-color: #FFF;
 }
 .onglet .inactif:hover {
-  cursor: pointer;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.4);
 }
 @media only screen and (min-width: 1030px) {
   .onglet {
@@ -389,17 +397,17 @@ input, select {
   text-align: center;
   margin: 1.5em auto;
 }
-.connexion .mdp-box {
+.connexion .password-box {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   border: 1px solid #999;
   border-radius: 4px;
 }
-.connexion .mdp-box #mdp {
+.connexion .password-box #password {
   border: none;
   grid-column: 1/span 9;
 }
-.connexion .mdp-box svg {
+.connexion .password-box svg {
   grid-column: 10/span 1;
   cursor: pointer;
   margin: auto;

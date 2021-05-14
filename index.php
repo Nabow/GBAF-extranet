@@ -1,8 +1,8 @@
 <?php session_start(); 
-    include("php/functions.php");
-    include("php/connect.php");
+     include_once "php/functions.php";
+     include_once "php/bdd.php";
     
-        verifConnexion();
+     reDirConnect(verifIdConnexion($db));
 ?>
 
 <!DOCTYPE html>
@@ -23,13 +23,12 @@
     
     <title>GBAF</title>
 </head>
-
 <body>
     
     <section class="bloc-page">
 
         <!--     HEADER       -->
-        <?php include("header.php"); ?>
+        <?php include "header.php" ; ?>
 
 
 
@@ -45,7 +44,6 @@
                     <p>Aujourd’hui, c’est la première base de données pour chercher ces informations de manière fiable et rapide ou pour donner son avis sur les partenaires et acteurs du secteur bancaire, tels que les associations ou les financeurs solidaires.</p>
                     <p>Ainsi le GBAF donne accès aux salariés des grands groupes français à un point d’entrée unique, répertoriant un grand nombre d’informations sur les partenaires, les acteurs du groupe, les produits et les services bancaires et financiers.</p>
                     <p>Chaque salarié pourra ainsi poster un commentaire et donner son avis.</p>
-                    <a href="#">En savoir plus</a>
             </div>
 
             <!-- <img class src="https://images.unsplash.com/photo-1462206092226-f46025ffe607?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1953&q=80" alt="fédération-bancaire-francaise"> -->
@@ -55,49 +53,74 @@
         <section class="liste-article container">
             <h2>Liste des établissements</h2>
 
-            <form action="post" class="formulaire">
+            <form  method="post" action="index.php" class="formulaire">
                 <label for="recherche_nom">Rechercher : <input type="text" name="recherche_nom" id="recherche_nom"></label>
                 
                 <label for="trier">Trier : 
-                    <select name="choix">
+                    <select name="trie">
                             <option value="bonne-note">Mieux noté</option>
                             <option value="mauvaise-note">Moins bien noté</option>
-                            <option value="A-Z" selected="selected">Croissant</option>
-                            <option value="Z-A">Décroissant</option>
+                            <option value="acteur ASC" selected="selected">Croissant</option>
+                            <option value="acteur DESC">Décroissant</option>
                     </select>
                 </label>
                 <input class="bouton" type="submit" value="Ok">
             </form>
 
+            <?php //echo ($_POST['trie']); ?>
 
             <article>
                 
+                <?php 
+                try
+                {
+                    $bdd = new PDO('mysql:host=localhost;dbname=gbaf;charset=utf8;port=3307', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+                }
+                catch (Exception $e)
+                {
+                        die('Erreur : ' . $e->getMessage());
+                }                
+                if (isset($_POST['trie'])) {
+                    $ordre_tri = $_POST['trie'];
+                } else { $ordre_tri = 'acteur' ;}
 
-                    <a class="etablissement" href="">
-                        <img class="logo" src="img/Dsa_france.png" alt="">
+                if (isset($_POST['recherche_nom'])) {
+                    $nom_recherche = "%" . $_POST['recherche_nom'] . "%";
+                } else { $nom_recherche = '%' ;}
+
+                    $etablissement = $bdd->prepare('SELECT *, SUBSTRING(description, 1 , 200) AS extrait FROM acteurs WHERE acteur LIKE ? ORDER BY ? ');
+                    // var_dump($ordre_tri, $nom_recherche ) ;
+                    
+                    $etablissement->execute(array( $nom_recherche ,  $ordre_tri));
+
+                    while($donnees = $etablissement->fetch())
+                    { 
+                ?>
+
+                    <a class="etablissement" href="article.php?id_acteur=<?=$donnees['id_acteur']?>">
+                        <img class="logo" src="img/<?=$donnees['logo']?>" alt="">
                         <div class="description">
-                            <h3>DSA France</h3>
-                            <p>Dsa France accélère la croissance du territoire et s’engage avec les collectivités territoriales.
-                            Nous accompagnons les entreprises dans les étapes clés de leur évolution.
-                            Notre philosophie : s’adapter à chaque entreprise.
-                            Nous les accompagnons pour voir plus grand et plus loin et proposons des solutions de financement adaptées à chaque étape de la vie des entreprises
+                            <h3><?=$donnees['acteur']?></h3>
+                            <p><?=$donnees['extrait']?>...
                             </p>
                             <div class="bouton">
                                 <p >Lire la suite</p>
                             </div>
                         </div>
                     </a>
-
+                <?php }
+                $etablissement->closeCursor();
+                ?>
             </article>
 
         </section>
 
     </section>
     <div class="pagination">
-        <p>Page </p>
+        <p>Page 1</p>
     </div>
 
-    <?php include("footer.php"); ?>
+    <?php include "footer.php" ; ?>
 
 </body>
 

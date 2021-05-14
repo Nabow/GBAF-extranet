@@ -46,6 +46,8 @@ h3{
 p{
     padding: 0.3rem 0;
     color: $color-2;
+    line-height: 1.3rem;
+    // color: red;
 }
 input, select, label{
     line-height: 1rem;
@@ -114,4 +116,11 @@ input, select{
     transition: .5s ;
     @extend %shadow;
 
+}
+
+.warning{
+    color: red;
+    font-style: italic;
+    text-align: center;
+    font-size: 0.8rem;
 }
