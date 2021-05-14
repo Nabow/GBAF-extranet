@@ -105,6 +105,35 @@
                     </form>
                 </div>
 
+<?php 
+
+requeteBdd($_GET['id_acteur'],'id_acteur','SELECT * FROM acteurs WHERE id_acteur = :id_acteur');
+
+    // $bdd = new PDO('mysql:host=localhost;dbname=gbaf;charset=utf8;port=3307', 'root', 'root', [
+    //     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    //     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
+    // ]);
+    // $error = null;
+    // $success = null; 
+
+    // try {
+    //     if (isset($_GET['id_acteur'])) {
+    //         $query = $bdd->prepare('SELECT * FROM acteurs WHERE id_acteur = :id_acteur');
+    //         $query->execute([
+    //             'id_acteur' => $_GET['id_acteur']
+    //         ]);
+    //         $success = 'Votre article a bien été modifié';
+    //     }
+
+    //     $post = $query->fetch();
+    // } catch (PDOException $e) {
+    //     $error = $e->getMessage();
+    // }
+
+    // echo $success;
+    // print_r($post)
+?>
+
             <!-- LISTE DES COMMENTAIRES DEJA ECRITS -->
                 <div class="liste-com">
 
