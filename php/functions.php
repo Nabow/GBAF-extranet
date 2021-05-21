@@ -2,9 +2,20 @@
     // include("php/connect.php");
     include_once 'php/id_bdd.php';
 
+function afficheTableau($tableau){
+    echo '<pre>'.var_dump($tableau).'</pre>';
+}
 
+function afficheCookies(){
+    foreach($_COOKIE as $cookie_name => $cookie_value){
 
-function verifIdConnexion($db){
+            var_dump($cookie_name)."<br>"; 
+            var_dump($cookie_value)."<br>"; 
+     }
+}
+
+function verifIdConnexion(){
+$db = connectMsqli();
         if (isset($_COOKIE['email']) && isset($_COOKIE['password'])) {
             $verif_email = $_COOKIE['email'];
             $verif_password = $_COOKIE['password'];
@@ -33,33 +44,7 @@ function reDirConnect($verif = false){
     $verif===false ? header('Location: connect.php') : false;
 }
 
-// Vérifie si tous les champs sont complétés
 
-
-// function verifValidite ($tableau, $type_page = false){
-//     $message_erreur = '';
-//     if (!filter_var($tableau['email'], FILTER_VALIDATE_EMAIL)) {
-//         $message_erreur = $message_erreur . "Merci de saisir un email valide.\n";
-//       }
-
-//     if ($type_page){
-        
-//         if (!preg_match("/^[a-zA-Z-' ]*$/",$tableau['name'])) {
-//             $message_erreur = $message_erreur . "Seul les caractères alphabétiques sont acceptés dans le nom.\n";
-//             }
-//         if (!preg_match("/^[a-zA-Z-' ]*$/",$tableau['first_name'])) {
-//             $message_erreur = $message_erreur . "Seul les caractères alphabétiques sont acceptés dans le prénom.\n";
-//             }
-//         if ($tableau['question']==='') {
-//             $message_erreur = $message_erreur . "Il faut sélectionner une question.\n";
-//             }
-//     }
-//     if ($message_erreur!=''){
-//         return true;
-//     } else {
-//         return $message_erreur;
-//     }
-// }
 
 function test_input($data) {
     $data = trim($data);

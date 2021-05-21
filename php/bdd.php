@@ -82,31 +82,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && verifCompletion()) {
 }
 
 
-    // try
-    // {
-    //     $bdd = new PDO('mysql:host=localhost;dbname=gbaf;charset=utf8;port=3307', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-    // }
-    // catch (Exception $e)
-    // {
-    //         die('Erreur : ' . $e->getMessage());
-    // }
-    // mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-    // try
-    // {
-    //     $db = mysqli_connect('localhost', 'root', 'root', 'gbaf', 3307);
-    //     mysqli_set_charset($db, 'utf8mb4');
-    // }
-    // catch (Exception $e)
-    // {
-    //         die('Erreur : ' . $e->getMessage());
-    // }
-
-    // printf("Success... %s\n", mysqli_get_host_info($db));
-
-// var_dump($_POST);
-
 if ($_SERVER["REQUEST_METHOD"] == "POST" && $compteErr === 0 && verifCompletion()) {
     // echo 'test';
+    $db = connectMsqli();
     if ($page_inscription) {
         $username = $first_name . '.'.substr($name,0,2);
 

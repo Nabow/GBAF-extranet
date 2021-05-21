@@ -2,39 +2,26 @@
      include_once "php/functions.php";
      include_once "php/bdd.php";
     
-     reDirConnect(verifIdConnexion($db));
+     reDirConnect(verifIdConnexion());
+
+     $titre = 'GBAF';
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
+        <!--     HEADER       -->
+        <?php include "header.php" ; ?>
 
-<head>
-    <meta charset="UTF-8">
-
-    <!--     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
- -->
-    <link rel="shortcut icon" href="img/GBAF-favicon.png" type="image/x-icon">
-    
-    <!-- Import de la police d'écriture -->
-    <link rel="preconnect" href="https://fonts.gstatic.com"> 
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    
-    <title>GBAF</title>
-</head>
 <body>
     
     <section class="bloc-page">
 
-        <!--     HEADER       -->
-        <?php include "header.php" ; ?>
 
 
 
         <!--    HERO      -->
         <div class="hero container box">
-            
+
+
+
             <div class="text-hero ">
                 <h1>Extranet du Groupement Banque Assurance Français</h1>
                 <p>La Fédération bancaire française est l’organisation professionnelle qui représente toutes les banques
@@ -82,16 +69,35 @@
                 }                
                 if (isset($_POST['trie'])) {
                     $ordre_tri = $_POST['trie'];
-                } else { $ordre_tri = 'acteur' ;}
+                } else { 
+                    // switch ($ordre_tri) {
+                    //     case 'acteur DESC':
+                    //             $ordre_tri = 'acteur DESC'
+                    //         break;
+                    //     case 'acteur ASC':
+                    //             $ordre_tri = 'acteur ASC'
+                    //             break;
+                                
+                    //     default:
+                    //             $ordre_tri = 'acteur ASC'
+                    //         break;
+                    // }
+                    $ordre_tri = 'acteur ASC' ;}
 
                 if (isset($_POST['recherche_nom'])) {
                     $nom_recherche = "%" . $_POST['recherche_nom'] . "%";
                 } else { $nom_recherche = '%' ;}
 
-                    $etablissement = $bdd->prepare('SELECT *, SUBSTRING(description, 1 , 200) AS extrait FROM acteurs WHERE acteur LIKE ? ORDER BY ? ');
-                    // var_dump($ordre_tri, $nom_recherche ) ;
+                    $etablissement = $bdd->prepare("SELECT *, SUBSTRING(description, 1 , 200) AS extrait FROM acteurs WHERE acteur LIKE :recherche ORDER BY $ordre_tri ; ");
                     
-                    $etablissement->execute(array( $nom_recherche ,  $ordre_tri));
+                    $etablissement->execute(
+                        [ 'recherche' => $nom_recherche 
+                        ,
+                        //   'tri' => $ordre_tri
+                          ]
+                    
+                    );
+
 
                     while($donnees = $etablissement->fetch())
                     { 
