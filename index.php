@@ -10,7 +10,7 @@
         <!--     HEADER       -->
         <?php include "header.php" ; ?>
 
-<body>
+
     
     <section class="bloc-page">
 
@@ -45,8 +45,8 @@
                 
                 <label for="trier">Trier : 
                     <select name="trie">
-                            <option value="bonne-note">Mieux noté</option>
-                            <option value="mauvaise-note">Moins bien noté</option>
+                            <!-- <option value="bonne-note">Mieux noté</option>
+                            <option value="mauvaise-note">Moins bien noté</option> -->
                             <option value="acteur ASC" selected="selected">Croissant</option>
                             <option value="acteur DESC">Décroissant</option>
                     </select>
@@ -107,7 +107,7 @@
                         <img class="logo" src="img/<?=$donnees['logo']?>" alt="">
                         <div class="description">
                             <h3><?=$donnees['acteur']?></h3>
-                            <p><?=$donnees['extrait']?>...
+                            <p><?= nl2br($donnees['extrait'])?>...
                             </p>
                             <div class="bouton">
                                 <p >Lire la suite</p>
@@ -127,7 +127,3 @@
     </div>
 
     <?php include "footer.php" ; ?>
-
-</body>
-
-</html>

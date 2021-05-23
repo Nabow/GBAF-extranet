@@ -56,7 +56,19 @@ table {
 /* DEFINITION DES VARIABLES */
 /* DEFINITION DES VARIABLES */
 /* REGLES GENERALES */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 body {
+  display: table;
+  width: 100%;
   font-size: 17px;
   font-family: "Open Sans", sans-serif;
   background-color: #f0efef;
@@ -201,9 +213,13 @@ input, select {
   font-size: 0.8em;
   background: #FFF;
   text-align: center;
-  padding: 2rem;
-  margin-top: 3rem;
   box-shadow: -3px -3px 6px rgba(110, 106, 111, 0.3);
+  display: table-row;
+  height: 5em;
+}
+.footer-main div {
+  display: table-cell;
+  vertical-align: middle;
 }
 
 /* ------------------------HERO------------------------ */
@@ -266,6 +282,7 @@ input, select {
 
 .pagination p {
   text-align: center;
+  margin-bottom: 2em;
 }
 
 .italic {
@@ -403,7 +420,7 @@ input, select {
   border: 1px solid #999;
   border-radius: 4px;
 }
-.connexion .password-box #password {
+.connexion .password-box #password, .connexion .password-box #new_password {
   border: none;
   grid-column: 1/span 9;
 }

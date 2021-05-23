@@ -15,7 +15,7 @@ $titre = 'Connexion GBAF';
 
         <!--     HEADER       -->
         <?php include "header.php"; ?>
-<body>
+
     
     <section class="bloc-page">
 
@@ -64,7 +64,7 @@ $titre = 'Connexion GBAF';
                         </label>
                         <div class="password-box">
                             <input type="password" name="password" id="password" value="<?= $password ?>">
-                            <svg class="icon unmask"><use xlink:href="svg/sprite.svg#visibility_on"></use></svg>
+                            <svg class="icon unmask" onclick="Afficher()"><use xlink:href="svg/sprite.svg#visibility_on"></use></svg>
                         </div>
 
                         <?php if ($page_inscription){
@@ -114,6 +114,7 @@ $titre = 'Connexion GBAF';
                                 <?php
                         }else{?>
                             <!-- Bouton Connexion -->
+                            <a href="forgottenpwd.php">Mot de passe oublié</a>
                             <p><button class="bouton" name="ok" type="submit">Connexion</button></p>
                         <?php } ?>
                     </form>
@@ -128,18 +129,17 @@ $titre = 'Connexion GBAF';
     <?php include "footer.php"; ?>
 
 
-    <!-- <script>
-        $('.unmask').on('click', function(){
-        
-        if($(this).prev('input').attr('type') == 'password')
-            changeType($(this).prev('input'), 'text');
-        
-        else
-            changeType($(this).prev('input'), 'password');
-        
-        return false;
-        });
-    </script> -->
-</body>
-
-</html>
+<script>
+    function Afficher()
+    { 
+    var input = document.getElementById("password"); 
+    if (input.type === "password")
+    { 
+    input.type = "text"; 
+    } 
+    else
+    { 
+    input.type = "password"; 
+    } 
+    } 
+</script>

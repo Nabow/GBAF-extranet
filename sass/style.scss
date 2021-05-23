@@ -97,7 +97,8 @@
 
 
 .pagination p{
-    text-align: center;   
+    text-align: center; 
+    margin-bottom: 2em;  
    } 
 
 
@@ -263,7 +264,7 @@
         grid-template-columns: repeat(10, 1fr);
         border: 1px solid #999;
         border-radius: 4px;
-        #password{
+        #password, #new_password{
             border: none;
             grid-column: 1 / span 9;
         }

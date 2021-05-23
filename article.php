@@ -1,6 +1,6 @@
 <?php session_start(); 
      include_once "php/functions.php";
-     include_once "php/bdd.php";
+    //  include_once "php/bdd.php";
     
      reDirConnect(verifIdConnexion());
      $titre = 'GBAF - établissement';
@@ -19,19 +19,21 @@
 
    
     if (isset($_GET['vote'])) {
+
         $vote = (int)$_GET['vote'];
+
         $Arr_vote = array_merge($Arr_id_user_id_acteur, ['vote' => $vote]);
-        $test = requeteBdd($Arr_id_user,'SELECT * FROM vote WHERE id_user = :id_user','rowCount');
-        var_dump($test);
+
+
         if(requeteBdd($Arr_id_user,'SELECT * FROM vote WHERE id_user = :id_user','rowCount') > 0){
-            requeteBdd($Arr_id_user,'UPDATE vote SET vote= :vote WHERE id_user = :id_user AND id_acteur = :id_acteur');
+            requeteBdd($Arr_vote,"UPDATE vote SET vote= :vote WHERE id_user = :id_user AND id_acteur = :id_acteur");
         } else {
-            requeteBdd($Arr_id_user,'INSERT INTO vote(id_user, id_acteur, vote) VALUES (:id_user, :id_acteur, :vote) ');
+            requeteBdd($Arr_vote,'INSERT INTO vote(id_user, id_acteur, vote) VALUES (:id_user, :id_acteur, :vote) ');
         }
     }
-
-    // $bdd = connectBdd();
-    // $bdd->query("INSERT INTO vote(id_user, id_acteur, vote) VALUES ($id_user, $id_acteur, $vote) ");
+    $modif_commentaire = requeteBdd( $Arr_id_user_id_acteur ,'SELECT * FROM post WHERE id_acteur = :id_acteur AND id_user = :id_user', 'rowCount',);
+    include "php/comment.php";
+    $modif_commentaire = requeteBdd( $Arr_id_user_id_acteur ,'SELECT * FROM post WHERE id_acteur = :id_acteur AND id_user = :id_user', 'rowCount',);
 
 
 ?>
@@ -39,10 +41,8 @@
         <!--     HEADER       -->
         <?php include "header.php" ; ?>
 
-<body>
-    
-    <section class="bloc-page">
 
+    <section class="bloc-page">
 
 
         <section class="liste-article container">
@@ -83,20 +83,17 @@ $vote_non = requeteBdd($Arr_id_acteur,'SELECT * FROM vote WHERE vote = 0 AND id_
 $vote_user = requeteBdd($Arr_id_user_id_acteur,'SELECT * FROM vote WHERE id_acteur = :id_acteur AND id_user = :id_user','fetch');
 
 
-var_dump(['id_acteur' => $id_acteur, 'id_user' => $id_user]);
-echo '<br>';
-var_dump(array_merge($Arr_id_acteur,$Arr_id_user));
-echo '<br>';
-var_dump($Arr_id_user_id_acteur);
+
 
 $class_vote_user= "";
 if (!empty($vote_user)) {
-    if ($vote_user -> vote === 1) {
+    if (($vote_user -> vote) === 1) {
         $class_vote_user= "oui";
     } elseif ($vote_user -> vote === 0){
         $class_vote_user= "non";
     }
 }
+
 
 ?>
                 <div class="formulaire-com">
@@ -113,34 +110,32 @@ if (!empty($vote_user)) {
                     </div>
 
                 <!-- FORMULAIRE DE SAISIE DES COMMENTAIRES -->
-                    <form action="article.php" method="post">
+
+                    <form action="article.php?id_acteur=<?= $id_acteur ?>" method="post">
                         <label for="commentaire">Saisir un commentaire<br>
                             <textarea name="commentaire" id="commentaire" ></textarea>
                         </label>
-                        <p><input class="bouton" type="submit" value="Envoyer"></p>
+                        <p><input class="bouton" name="ok" type="submit" value="<?= (empty($modif_commentaire)) ? 'Envoyer' : 'Modifier' ; ?>"></p>
                     </form>
                 </div>
 
 <?php 
 
-$commentaires = requeteBdd( $Arr_id_acteur ,'SELECT * FROM acteurs WHERE id_acteur = :id_acteur', 'fetchAll');
-
+$commentaires = requeteBdd( $Arr_id_acteur ,'SELECT p.post, DATE_FORMAT(p.date_add, "%d-%m-%Y à %kh%i") AS date_post, ac.username, ac.id_user FROM post AS p INNER JOIN account AS ac ON p.id_user = ac.id_user WHERE id_acteur = :id_acteur', 'fetchAll');
 
 ?>
 
             <!-- LISTE DES COMMENTAIRES DEJA ECRITS -->
                 <div class="liste-com">
-                    
 
-                    <div class="commentaire-n">
-                        <p class="auteur"><strong>Emmanuel</strong> le 18-12-2019 à 16h20</p>
-                        <p class="message">bonjour</p>
-                    </div>
+                   
+                    <?php foreach($commentaires as $commentaire): ?>
+                        <div class="commentaire-n<?php if($commentaire -> id_user === $id_user){echo " commentaire-auteur";} ?>">
+                            <p class="auteur"><strong><?= $commentaire -> username ?></strong> le <?= $commentaire -> date_post ?></p>
+                            <p class="message"><?= nl2br($commentaire -> post) ?></p>
+                        </div>
+                    <?php endforeach; ?>
 
-                    <div class="commentaire-auteur commentaire-n">
-                        <p class="auteur"><strong>Raphael</strong> le 04-05-2021 à 18:33</p>
-                        <p class="message">Bravo pour le site, il bien fait !</p>
-                    </div>
                 </div>
 
             </div>
@@ -152,6 +147,3 @@ $commentaires = requeteBdd( $Arr_id_acteur ,'SELECT * FROM acteurs WHERE id_acte
 
     <?php include "footer.php" ; ?>
 
-</body>
-
-</html>

@@ -1,6 +1,6 @@
 <?php 
-// require "../config.php";
-define('BDD_PASSWORD', 'root');
+require "config.php";
+// define('BDD_PASSWORD', 'root');
 
 
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
@@ -37,7 +37,8 @@ function connectBdd(){
 
     return new PDO('mysql:host=localhost;dbname=gbaf;charset=utf8;port=3307', 'root', BDD_PASSWORD, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
+        PDO::ATTR_EMULATE_PREPARES=>false
     ]);
 
 }
@@ -75,11 +76,12 @@ function requeteBdd(array $tableau = [] ,string $requete,string $mode = 'fetch')
                         $post = $query->fetch();
                         break;
                 }
+                $query->closeCursor();
                 return $post;
             } 
     
 
-    $query->closeCursor();
+        $query->closeCursor();
     } catch (PDOException $e) {
         return $e->getMessage();
     }
@@ -87,4 +89,3 @@ function requeteBdd(array $tableau = [] ,string $requete,string $mode = 'fetch')
 
 }
 
-    ?>

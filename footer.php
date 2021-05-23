@@ -1,6 +1,12 @@
-<footer class="footer-main">
+        <footer class="footer-main">
 
-    <a href="#">Contact</a> | 
-    <a href="#">Mentions légales</a>
+            <div>
+                <a href="#">Contact</a> |
+                <a href="#">Mentions légales</a>
+            </div>
 
-</footer>
+        </footer>
+
+    </body> 
+
+</html>
