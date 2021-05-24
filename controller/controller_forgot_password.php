@@ -1,6 +1,6 @@
 <?php 
-    include_once "php/functions.php";
-    include_once 'php/id_bdd.php';
+    include_once "model/functions.php";
+    include_once 'model/connect_bdd.php';
 
 
 

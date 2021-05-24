@@ -1,12 +1,12 @@
 <?php session_start(); 
-    include_once "php/functions.php";
+    include_once "model/functions.php";
     
     //    reDir(verifConnexion()) ;
 
     // isset($_GET['type'])?$page_inscription = true:$page_inscription=false;
 
     
-    include_once "php/bdd.php";
+    include_once "controller/controller_connect.php";
 
 if(verifIdConnexion()){header('Location: index.php');}
 $titre = 'Connexion GBAF';
@@ -14,7 +14,7 @@ $titre = 'Connexion GBAF';
 
 
         <!--     HEADER       -->
-        <?php include "header.php"; ?>
+        <?php include "template/header.php"; ?>
 
     
     <section class="bloc-page">
@@ -50,7 +50,7 @@ $titre = 'Connexion GBAF';
 
 <!-- FORMULAIRE DE SAISIE DES COMMENTAIRES -->
                     
-                    <form class="connexion" action="connect.php<?php if ($page_inscription){ echo '?type=1'; } ?>" method="post">
+                    <form class="connexion" action="#<?php if ($page_inscription){ echo '?type=1'; } ?>" method="post">
                         
                         <!-- Champ email -->
                         <label for="email">Email 
@@ -64,7 +64,7 @@ $titre = 'Connexion GBAF';
                         </label>
                         <div class="password-box">
                             <input type="password" name="password" id="password" value="<?= $password ?>">
-                            <svg class="icon unmask" onclick="Afficher()"><use xlink:href="svg/sprite.svg#visibility_on"></use></svg>
+                            <svg class="icon unmask" onclick="Afficher()"><use xlink:href="public/svg/sprite.svg#visibility_on"></use></svg>
                         </div>
 
                         <?php if ($page_inscription){
@@ -126,7 +126,7 @@ $titre = 'Connexion GBAF';
     </section>
 
 <!-- FOOTER -->
-    <?php include "footer.php"; ?>
+    <?php include "template/footer.php"; ?>
 
 
 <script>

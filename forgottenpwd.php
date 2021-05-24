@@ -1,15 +1,15 @@
 <?php 
 
-include_once "php/functions.php";
+include_once "model/functions.php";
 
 if(verifIdConnexion()){header('Location: index.php');}
 $titre = 'Mot de passe oublié - GBAF';
 
-include "php/pwdbdd.php";
+include "controller/controller_forgot_password.php";
 ?>
 
 <!--     HEADER       -->
-<?php include "header.php"; ?>
+<?php include "template/header.php"; ?>
 
 <section class="bloc-page">
 
@@ -53,7 +53,7 @@ include "php/pwdbdd.php";
                 </label>
                 <div class="password-box">
                     <input type="password" name="new_password" id="new_password" value="<?= $new_password ?>">
-                    <svg class="icon unmask" onclick="Afficher()"><use xlink:href="svg/sprite.svg#visibility_on"></use></svg>
+                    <svg class="icon unmask" onclick="Afficher()"><use xlink:href="public/svg/sprite.svg#visibility_on"></use></svg>
                 </div>
                 
 
@@ -98,7 +98,7 @@ include "php/pwdbdd.php";
 </section>
 
 <!-- FOOTER -->
-<?php include "footer.php"; ?>
+<?php include "template/footer.php"; ?>
 
 
 <script>

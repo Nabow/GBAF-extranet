@@ -1,36 +1,5 @@
 <?php 
 require "config.php";
-// define('BDD_PASSWORD', 'root');
-
-
-    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-    
-    function connectMsqli(){
-        try
-        {
-            return mysqli_connect('localhost', 'root', 'root', 'gbaf', 3307);
-            // mysqli_set_charset($db, 'utf8mb4');
-        }
-        catch (Exception $e)
-        {
-                // die('Erreur : ' . $e->getMessage());
-        }
-
-    }
-
-
-
- 
-    
-    function print_var_name($var) {
-        foreach($GLOBALS as $var_name => $value) {
-            if ($value === $var) {
-                return $var_name;
-            }
-        }
-    
-        return false;
-    }
 
 
 function connectBdd(){

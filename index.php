@@ -1,6 +1,5 @@
 <?php session_start(); 
-     include_once "php/functions.php";
-     include_once "php/bdd.php";
+     include_once "model/functions.php";
     
      reDirConnect(verifIdConnexion());
 
@@ -8,7 +7,7 @@
 ?>
 
         <!--     HEADER       -->
-        <?php include "header.php" ; ?>
+        <?php include "template/header.php" ; ?>
 
 
     
@@ -33,7 +32,6 @@
                     <p>Chaque salarié pourra ainsi poster un commentaire et donner son avis.</p>
             </div>
 
-            <!-- <img class src="https://images.unsplash.com/photo-1462206092226-f46025ffe607?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1953&q=80" alt="fédération-bancaire-francaise"> -->
         </div>
 
 
@@ -54,69 +52,43 @@
                 <input class="bouton" type="submit" value="Ok">
             </form>
 
-            <?php //echo ($_POST['trie']); ?>
-
             <article>
                 
-                <?php 
-                try
-                {
-                    $bdd = new PDO('mysql:host=localhost;dbname=gbaf;charset=utf8;port=3307', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-                }
-                catch (Exception $e)
-                {
-                        die('Erreur : ' . $e->getMessage());
-                }                
+                <?php
                 if (isset($_POST['trie'])) {
-                    $ordre_tri = $_POST['trie'];
-                } else { 
-                    // switch ($ordre_tri) {
-                    //     case 'acteur DESC':
-                    //             $ordre_tri = 'acteur DESC'
-                    //         break;
-                    //     case 'acteur ASC':
-                    //             $ordre_tri = 'acteur ASC'
-                    //             break;
-                                
-                    //     default:
-                    //             $ordre_tri = 'acteur ASC'
-                    //         break;
-                    // }
-                    $ordre_tri = 'acteur ASC' ;}
+                    $ordre_tri = test_input($_POST['trie']) ;
+                    
+                    switch ($ordre_tri) {
+                        case 'acteur DESC':
+                                $ordre_tri = 'acteur DESC';
+                            break;
+                        default:
+                                $ordre_tri = 'acteur ASC';
+                            break;
+                    }
+                } else {$ordre_tri = 'acteur ASC';}
+                    
 
                 if (isset($_POST['recherche_nom'])) {
-                    $nom_recherche = "%" . $_POST['recherche_nom'] . "%";
+                    $nom_recherche = "%" . test_input($_POST['recherche_nom']) . "%";
                 } else { $nom_recherche = '%' ;}
 
-                    $etablissement = $bdd->prepare("SELECT *, SUBSTRING(description, 1 , 200) AS extrait FROM acteurs WHERE acteur LIKE :recherche ORDER BY $ordre_tri ; ");
-                    
-                    $etablissement->execute(
-                        [ 'recherche' => $nom_recherche 
-                        ,
-                        //   'tri' => $ordre_tri
-                          ]
-                    
-                    );
+                    $etablissements = requeteBdd(['recherche' => $nom_recherche],"SELECT *, SUBSTRING(description, 1 , 200) AS extrait FROM acteurs WHERE acteur LIKE :recherche ORDER BY $ordre_tri","fetchAll" );
 
-
-                    while($donnees = $etablissement->fetch())
-                    { 
+                    foreach ($etablissements as $etablissement) :
                 ?>
-
-                    <a class="etablissement" href="article.php?id_acteur=<?=$donnees['id_acteur']?>">
-                        <img class="logo" src="img/<?=$donnees['logo']?>" alt="">
+                    <a class="etablissement" href="article.php?id_acteur=<?=$etablissement -> id_acteur?>">
+                        <img class="logo" src="public/img/<?=$etablissement -> logo?>" alt="">
                         <div class="description">
-                            <h3><?=$donnees['acteur']?></h3>
-                            <p><?= nl2br($donnees['extrait'])?>...
+                            <h3><?=$etablissement -> acteur?></h3>
+                            <p><?= nl2br($etablissement -> extrait)?>...
                             </p>
                             <div class="bouton">
                                 <p >Lire la suite</p>
                             </div>
                         </div>
                     </a>
-                <?php }
-                $etablissement->closeCursor();
-                ?>
+                <?php endforeach ; ?>
             </article>
 
         </section>
@@ -126,4 +98,4 @@
         <p>Page 1</p>
     </div>
 
-    <?php include "footer.php" ; ?>
+    <?php include "template/footer.php" ; ?>

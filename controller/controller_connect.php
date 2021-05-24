@@ -1,6 +1,6 @@
 <?php 
-    include_once "php/functions.php";
-    include_once 'php/id_bdd.php';
+    include_once "model/functions.php";
+    include_once 'model/connect_bdd.php';
 
 
 isset($_GET['type'])?$page_inscription = true:$page_inscription=false;
@@ -19,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && verifCompletion()) {
       $compteErr++;
     } else {
       $email = test_input($_POST["email"]);
+      $Arr_email = ['email' => $email];
       // check if e-mail address is well-formed
       if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $emailErr = "Adresse email invalide";
@@ -33,8 +34,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && verifCompletion()) {
       $password = test_input($_POST["password"]);
       // check if password only contains letters and whitespace
       if (!preg_match("/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/",$password)) {
-        $compteErr++;
-        $passwordErr = "Minimum 8 caractères de long avec au moins : un numéro, une majuscule et une minuscule";
+          $compteErr++;
+          $passwordErr = "Minimum 8 caractères de long avec au moins : un numéro, une majuscule et une minuscule";
+        }else {
+            $password = md5($password);
+            $Arr_password = ['password' => $password];
       }
     }
     
@@ -45,6 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && verifCompletion()) {
             $nameErr = " ";
         } else {
         $name = test_input($_POST["name"]);
+        $Arr_name = ['name' => $name];
         // check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
             $compteErr++;
@@ -57,6 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && verifCompletion()) {
             $first_nameErr = " ";
         } else {
         $first_name = test_input($_POST["first_name"]);
+        $Arr_first_name = ['first_name' => $first_name];
+
         // check if first_name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/",$first_name)) {
             $compteErr++;
@@ -69,6 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && verifCompletion()) {
             $questionErr = "Il faut sélectionner une question";
         } else {
         $question = test_input($_POST["question"]);
+        $Arr_question = ['question' => $question];
         }
         
         if (empty($_POST["answer"])) {
@@ -76,78 +84,87 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && verifCompletion()) {
             $reponseErr = " ";
         } else {
             $reponse = test_input($_POST["answer"]);
+            $Arr_reponse = ['reponse' => $reponse];
         }
     
     }
 }
 
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && $compteErr === 0 && verifCompletion()) {
-    // echo 'test';
-    $db = connectMsqli();
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $compteErr === 0 ) {
+
+
     if ($page_inscription) {
         $username = $first_name . '.'.substr($name,0,2);
-
-
-        $sql_u = "SELECT * FROM account WHERE username='$username'";
-        $sql_e = "SELECT * FROM account WHERE email='$email'";
-        $res_u = mysqli_query($db, $sql_u);
-        $res_e = mysqli_query($db, $sql_e);
+        $Arr_username = ['username' => $username];
+        
+        echo "<br>test 1";
+        
+        $nb_email = requeteBdd($Arr_email,"SELECT * FROM account WHERE email= :email","rowCount");
+        $nb_user = requeteBdd($Arr_username,"SELECT * FROM account WHERE username= :username","rowCount");
     
-        if (mysqli_num_rows($res_u) > 0) {
+        if ($nb_user > 0) {
+            echo "<br>test 2";
+
             $i = 0;
-            while (mysqli_num_rows($res_u) > 0) {
+            while ($nb_user > 0) {
                 $i++;
-                $new_username = $username . $i;
-                $sql_u = "SELECT * FROM account WHERE username='$new_username'";
+                $username = $username . $i;
+                $Arr_username = ['username' => $username];
+                $nb_user = requeteBdd($Arr_username,"SELECT * FROM account WHERE username= :username","rowCount");
             }
-            $username = $new_username;
-        }else if(mysqli_num_rows($res_e) > 0){
+            echo $username;
+        }
+        if($nb_email > 0){
+            echo "<br>test 3";
+
           $subErr = "Cet email est déjà utilisé"; 	
         }else{
-             $query = "INSERT INTO account (nom, prenom, username, password, question, reponse, email) 
-                      VALUES ('$name', '$first_name', '$username', '".md5($password)."', '$question', '$reponse', '$email')";
-             $results = mysqli_query($db, $query);
-            //  echo 'Saved!';
+            echo "<br>test 4";
 
-             $sql_e = "SELECT * FROM account WHERE email='$email'";
-             $res_e = mysqli_query($db, $sql_e);
-             $tableau = mysqli_fetch_assoc($res_e);
-             $id_user = $tableau['id_user'];
+            $query_bdd = requeteBdd(array_merge($Arr_name,$Arr_first_name,$Arr_username,$Arr_password,$Arr_question,$Arr_reponse,$Arr_email),
+                        'INSERT INTO account (nom, prenom, username, password, question, reponse, email) 
+                        VALUES (:name, :first_name, :username, :password, :question, :reponse, :email)');
+
+
+            $query_email = requeteBdd($Arr_email,"SELECT * FROM account WHERE email= :email","fetch");
+            $id_user = $query_email -> id_user;
 
 
              setcookie('user', $username, time() + 31*24*3600, null, null, false, true);
              setcookie('id_user', $id_user, time() + 31*24*3600, null, null, false, true);
              setcookie('email', $email, time() + 31*24*3600, null, null, false, true);
-             setcookie('password', md5($password), time() + 31*24*3600, null, null, false, true);
+             setcookie('password', $password, time() + 31*24*3600, null, null, false, true);
              setcookie('name', $name, time() + 31*24*3600, null, null, false, true);
              setcookie('first_name', $first_name, time() + 31*24*3600, null, null, false, true);
-             //  exit();
         }
         
     } else {
         
 
-        $sql_e = "SELECT * FROM account WHERE email='$email'";
-        $res_e = mysqli_query($db, $sql_e);
+        $nb_email = requeteBdd($Arr_email,"SELECT * FROM account WHERE email= :email","rowCount");
 
-
-        if (mysqli_num_rows($res_e) === 0) {
+        if ($nb_email === 0) {
             $connectErr = "Cet email n'existe pas dans la base de données"; 	
         } else{
-            $tableau = mysqli_fetch_assoc($res_e);
-            if($tableau['password'] === md5($password))
-            $id_user = $tableau['id_user'];
-            $name = $tableau['nom'];
-            $first_name = $tableau['prenom'];
+            $query_email = requeteBdd($Arr_email,"SELECT * FROM account WHERE email= :email","fetch");
 
+            if($query_email -> password === $password){
 
-            setcookie('user', $username, time() + 31*24*3600, null, null, false, true);
-            setcookie('name', $name, time() + 31*24*3600, null, null, false, true);
-            setcookie('first_name', $first_name, time() + 31*24*3600, null, null, false, true);
-            setcookie('email', $email, time() + 31*24*3600, null, null, false, true);
-            setcookie('id_user', $id_user, time() + 31*24*3600, null, null, false, true);
-            setcookie('password', md5($password), time() + 31*24*3600, null, null, false, true);
+                $id_user = $query_email -> id_user;
+                $name = $query_email -> nom;
+                $first_name = $query_email -> prenom;
+    
+    
+                setcookie('user', $username, time() + 31*24*3600, null, null, false, true);
+                setcookie('name', $name, time() + 31*24*3600, null, null, false, true);
+                setcookie('first_name', $first_name, time() + 31*24*3600, null, null, false, true);
+                setcookie('email', $email, time() + 31*24*3600, null, null, false, true);
+                setcookie('id_user', $id_user, time() + 31*24*3600, null, null, false, true);
+                setcookie('password', md5($password), time() + 31*24*3600, null, null, false, true);
+            }else {
+                $connectErr = "Mot de passe eronné";
+            }
             
         }
 

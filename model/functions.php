@@ -1,6 +1,6 @@
 <?php 
     // include("php/connect.php");
-    include_once 'php/id_bdd.php';
+    include_once 'connect_bdd.php';
 
 function afficheTableau($tableau){
     echo '<pre>'.var_dump($tableau).'</pre>';
@@ -15,14 +15,12 @@ function afficheCookies(){
 }
 
 function verifIdConnexion(){
-$db = connectMsqli();
         if (isset($_COOKIE['email']) && isset($_COOKIE['password'])) {
             $verif_email = $_COOKIE['email'];
             $verif_password = $_COOKIE['password'];
-            $sql_e = "SELECT * FROM account WHERE email='$verif_email'";
-            $res_e = mysqli_query($db, $sql_e);
-            $tableau = mysqli_fetch_assoc($res_e);
-            if ($tableau['password'] = $verif_password) {
+            $query = requeteBdd(['email' => $verif_email],'SELECT * FROM account WHERE email= :email');
+
+            if ($query -> password = $verif_password) {
                 return true;
             }
         }
@@ -52,4 +50,29 @@ function test_input($data) {
     $data = htmlspecialchars($data);
     return $data;
   }
-?>
+
+function getVariavleName($var) {
+    foreach($GLOBALS as $varName => $value) {
+        if ($value === $var) {
+            return $varName;
+        }
+    }
+    return;
+}
+
+function makeArray(...$variables){
+    $Array = [];
+    foreach ($variables as $variable) {
+        $nom_variable = getVariavleName($variable);
+        $Array[$nom_variable] =  $variable;
+    }
+    return $Array;
+}
+
+function defCookies($tableau){
+
+    foreach ($tableau as $element) {
+        setcookie(key($element), $element, time() + 31*24*3600, null, null, false, true);
+    }
+
+}
