@@ -3,8 +3,9 @@ require "config.php";
 
 
 function connectBdd(){
+    // return new PDO('mysql:host=gbaf.yj.lu;dbname=jbbhvkmg_gbaf;charset=utf8;port=3307', BDD_IDENTIFIANT, BDD_PASSWORD, [
 
-    return new PDO('mysql:host=localhost;dbname=gbaf;charset=utf8;port=3307', 'root', BDD_PASSWORD, [
+    return new PDO('mysql:host='.BDD_HOST.';dbname='.BDD_DATABASE.';charset=utf8;port='. BDD_PORT, BDD_IDENTIFIANT, BDD_PASSWORD, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
         PDO::ATTR_EMULATE_PREPARES=>false
@@ -17,10 +18,10 @@ function connectBdd(){
     // fonction pour réaliser des requêtes dans la BDD
 function requeteBdd(array $tableau = [] ,string $requete,string $mode = 'fetch'){
 
-    $bdd = connectBdd();
-
+    
     
     try {
+        $bdd = connectBdd();
 
             $query = $bdd->prepare($requete);
             $query->execute($tableau);
@@ -52,7 +53,7 @@ function requeteBdd(array $tableau = [] ,string $requete,string $mode = 'fetch')
 
         $query->closeCursor();
     } catch (PDOException $e) {
-        return $e->getMessage();
+        echo $e->getMessage();
     }
 
 
