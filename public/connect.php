@@ -68,7 +68,7 @@ $titre = 'Connexion GBAF';
                 <div class="password-box">
                     <input type="password" name="password" id="password" value="<?= $password ?>">
                     <svg class="icon unmask" onclick="Afficher()">
-                        <use xlink:href="public/svg/sprite.svg#visibility_on"></use>
+                        <use xlink:href="svg/sprite.svg#visibility_on"></use>
                     </svg>
                 </div>
 

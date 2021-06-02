@@ -3,8 +3,6 @@ require_once "config.php";
 
 
 function connectBdd(){
-    // return new PDO('mysql:host=gbaf.yj.lu;dbname=jbbhvkmg_gbaf;charset=utf8;port=3307', BDD_IDENTIFIANT, BDD_PASSWORD, [
-
     return new PDO('mysql:host='.BDD_HOST.';dbname='.BDD_DATABASE.';charset=utf8;port='. BDD_PORT, BDD_IDENTIFIANT, BDD_PASSWORD, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
