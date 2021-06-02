@@ -1,6 +1,6 @@
 <?php 
-    include_once "core/functions.php";
-    include_once 'core/connect_bdd.php';
+    include_once "../core/functions.php";
+    include_once '../core/connect_bdd.php';
 
 
 

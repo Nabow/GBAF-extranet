@@ -1,6 +1,6 @@
 <?php 
-    include_once "core/functions.php";
-    include_once 'core/connect_bdd.php';
+    include_once "../core/functions.php";
+    include_once '../core/connect_bdd.php';
 
     if (isset($_GET['id_acteur']) && isset($_COOKIE['id_user'])) {
         $id_acteur = (int)$_GET['id_acteur'];

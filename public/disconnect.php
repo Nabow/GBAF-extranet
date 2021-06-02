@@ -9,6 +9,4 @@ foreach($_COOKIE as $cookie_name => $cookie_value){
     setcookie($cookie_name, '', time() - 4200, '/');
  }
 
-header('Location: ../connect.php');
-
-?>
+header('Location: connect.php');

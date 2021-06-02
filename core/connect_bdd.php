@@ -58,4 +58,3 @@ function requeteBdd(array $tableau = [] ,string $requete,string $mode = 'fetch')
 
 
 }
-
