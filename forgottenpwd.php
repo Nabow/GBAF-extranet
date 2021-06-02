@@ -1,11 +1,11 @@
 <?php 
 
-include_once "model/functions.php";
+include_once "core/functions.php";
 
 if(verifIdConnexion()){header('Location: index.php');}
 $titre = 'Mot de passe oublié - GBAF';
 
-include "controller/controller_forgot_password.php";
+include "model/model_forgot_password.php";
 ?>
 
 <!--     HEADER       -->

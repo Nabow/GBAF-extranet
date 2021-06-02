@@ -1,11 +1,11 @@
 <?php session_start(); 
-     include_once "model/functions.php";
+     include_once "core/functions.php";
     
      reDirConnect(verifIdConnexion());
      $titre = 'GBAF - établissement';
 
 
-    include "controller\controller_post.php";
+    include "model\model_post.php";
 
 
 ?>

@@ -31,7 +31,7 @@
                             <?php  
                             if(verifIdConnexion()){ ?>
                                 <li><?= $_COOKIE['first_name'] . " " . $_COOKIE['name'] ?></li>
-                                <li><a href="model/disconnect.php"><svg class="icon"><use xlink:href="public/svg/sprite.svg#deconnecter"></use></svg> Se déconnecter</a></li>
+                                <li><a href="core/disconnect.php"><svg class="icon"><use xlink:href="public/svg/sprite.svg#deconnecter"></use></svg> Se déconnecter</a></li>
                             <?php } else {?>
                                 <li></li>
                                 <li><a href="connect.php"><svg class="icon"><use xlink:href="public/svg/sprite.svg#connecter"></use></svg> Se connecter</a></li>

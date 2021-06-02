@@ -1,6 +1,6 @@
 <?php 
-    include_once "model/functions.php";
-    include_once 'model/connect_bdd.php';
+    include_once "core/functions.php";
+    include_once 'core/connect_bdd.php';
 
 
 isset($_GET['type'])?$page_inscription = true:$page_inscription=false;

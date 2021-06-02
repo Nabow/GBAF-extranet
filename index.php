@@ -1,5 +1,5 @@
 <?php session_start(); 
-     include_once "model/functions.php";
+     include_once "core/functions.php";
     
      reDirConnect(verifIdConnexion());
 

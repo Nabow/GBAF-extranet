@@ -1,12 +1,12 @@
 <?php session_start(); 
-    include_once "model/functions.php";
+    include_once "core/functions.php";
     
     //    reDir(verifConnexion()) ;
 
     // isset($_GET['type'])?$page_inscription = true:$page_inscription=false;
 
     
-    include_once "controller/controller_connect.php";
+    include_once "model/model_connect.php";
 
 if(verifIdConnexion()){header('Location: index.php');}
 $titre = 'Connexion GBAF';
