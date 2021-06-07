@@ -14,7 +14,7 @@ isset($_GET['type'])?$page_inscription = true:$page_inscription=false;
 
 // Test des valeurs du formulaire
 if ($_SERVER["REQUEST_METHOD"] == "POST" && verifCompletion()) {
-    if (empty($_POST["email"])) {
+    if (empty($_POST["email"]) || !isset($_POST["email"])) {
       $emailErr = " ";
       $compteErr++;
     } else {
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && verifCompletion()) {
       }
     }
       
-    if (empty($_POST["password"])) {
+    if (empty($_POST["password"]) || !isset($_POST["password"])) {
       $passwordErr = " ";
       $compteErr++;
     } else {
@@ -90,8 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && verifCompletion()) {
     }
 }
 
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && $compteErr === 0 ) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $compteErr === 0 && verifCompletion() ) {
 
 
     if ($page_inscription) {
