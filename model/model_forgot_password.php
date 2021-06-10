@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $compteErr++;
         $new_passwordErr = "Minimum 8 caractères de long avec au moins : un numéro, une majuscule et une minuscule";
       }else {
-        $new_password = md5($new_password);
+        $new_password = password_hash($new_password, PASSWORD_DEFAULT, ['cost' => 14]);
         $Arr_new_password = ['new_password' => $new_password];
       }
     }

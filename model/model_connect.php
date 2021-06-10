@@ -37,8 +37,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && verifCompletion()) {
           $compteErr++;
           $passwordErr = "Minimum 8 caractères de long avec au moins : un numéro, une majuscule et une minuscule";
         }else {
-            $password = md5($password);
-            $Arr_password = ['password' => $password];
+            
+            $password_hash = password_hash($password, PASSWORD_DEFAULT, ['cost' => 14]);
+            $Arr_password = ['password' => $password_hash];
       }
     }
     
@@ -97,13 +98,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $compteErr === 0 && verifCompletion(
         $username = $first_name . '.'.substr($name,0,2);
         $Arr_username = ['username' => $username];
         
-        echo "<br>test 1";
         
         $nb_email = requeteBdd($Arr_email,"SELECT * FROM account WHERE email= :email","rowCount");
         $nb_user = requeteBdd($Arr_username,"SELECT * FROM account WHERE username= :username","rowCount");
     
         if ($nb_user > 0) {
-            echo "<br>test 2";
 
             $i = 0;
             while ($nb_user > 0) {
@@ -112,14 +111,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $compteErr === 0 && verifCompletion(
                 $Arr_username = ['username' => $username];
                 $nb_user = requeteBdd($Arr_username,"SELECT * FROM account WHERE username= :username","rowCount");
             }
-            echo $username;
         }
         if($nb_email > 0){
-            echo "<br>test 3";
 
           $subErr = "Cet email est déjà utilisé"; 	
         }else{
-            echo "<br>test 4";
 
             $query_bdd = requeteBdd(array_merge($Arr_name,$Arr_first_name,$Arr_username,$Arr_password,$Arr_question,$Arr_reponse,$Arr_email),
                         'INSERT INTO account (nom, prenom, username, password, question, reponse, email) 
@@ -133,7 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $compteErr === 0 && verifCompletion(
              setcookie('user', $username, time() + 31*24*3600, null, null, false, true);
              setcookie('id_user', $id_user, time() + 31*24*3600, null, null, false, true);
              setcookie('email', $email, time() + 31*24*3600, null, null, false, true);
-             setcookie('password', $password, time() + 31*24*3600, null, null, false, true);
+             setcookie('password', $password_hash, time() + 31*24*3600, null, null, false, true);
              setcookie('name', $name, time() + 31*24*3600, null, null, false, true);
              setcookie('first_name', $first_name, time() + 31*24*3600, null, null, false, true);
         }
@@ -148,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $compteErr === 0 && verifCompletion(
         } else{
             $query_email = requeteBdd($Arr_email,"SELECT * FROM account WHERE email= :email","fetch");
 
-            if($query_email -> password === $password){
+            if(password_verify($password, $query_email -> password)){
 
                 $id_user = $query_email -> id_user;
                 $name = $query_email -> nom;
@@ -160,7 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $compteErr === 0 && verifCompletion(
                 setcookie('first_name', $first_name, time() + 31*24*3600, null, null, false, true);
                 setcookie('email', $email, time() + 31*24*3600, null, null, false, true);
                 setcookie('id_user', $id_user, time() + 31*24*3600, null, null, false, true);
-                setcookie('password', md5($password), time() + 31*24*3600, null, null, false, true);
+                setcookie('password', $password_hash, time() + 31*24*3600, null, null, false, true);
             }else {
                 $connectErr = "Mot de passe eronné";
             }
