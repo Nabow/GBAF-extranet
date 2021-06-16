@@ -29,7 +29,7 @@ include "../model/model_forgot_password.php";
        if(verifCompletion()===false) { ?> <p class="warning">* Merci de compléter tous les champs</p> <?php } 
 
        
-       if(!empty($connectErr) || !empty($subtErr)) { ?> <p class="warning"><?= $compteErr . $subErr ?></p> <?php } ?>
+       if(!empty($compteErr)) { ?> <p class="warning"><?= $compteErr ?></p> <?php } ?>
 
 
             <!-- FORMULAIRE DE SAISIE -->
@@ -55,7 +55,7 @@ include "../model/model_forgot_password.php";
                 <div class="password-box">
                     <input type="password" name="new_password" id="new_password" value="<?= $new_password ?>">
                     <svg class="icon unmask" onclick="Afficher()">
-                        <use xlink:href="public/svg/sprite.svg#visibility_on"></use>
+                        <use xlink:href="svg/sprite.svg#visibility_on"></use>
                     </svg>
                 </div>
 
@@ -107,17 +107,16 @@ include "../model/model_forgot_password.php";
 
 </section>
 
-<!-- FOOTER -->
-<?php include "template/footer.php"; ?>
-
-
 <script>
     function Afficher() {
         var input = document.getElementById("new_password");
-        if (input.type === "password") {
+        if (input.type === "new_password") {
             input.type = "text";
         } else {
-            input.type = "password";
+            input.type = "new_password";
         }
     }
 </script>
+    
+    <!-- FOOTER -->
+    <?php include "template/footer.php"; ?>

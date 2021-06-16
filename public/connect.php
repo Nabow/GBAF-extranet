@@ -40,13 +40,12 @@ $titre = 'Connexion GBAF';
 
         <!-- TITRE -->
         <div class="box-connexion">
-            <?php if($page_inscription){ ?> <h1>Création d'un compte utilisateur</h1> <?php }else{ ?><h1>Connexion à
-                votre compte</h1><?php } 
+
+            <?php if($page_inscription){ ?> <h1>Création d'un compte utilisateur</h1> <?php }else{ ?><h1>Connexion à votre compte</h1><?php } 
 
                if(verifCompletion()===false) { ?> <p class="warning">* Merci de compléter tous les champs</p> <?php } 
 
-               
-               if(!empty($connectErr) || !empty($subtErr)) { ?> <p class="warning"><?= $compteErr . $subErr ?></p>
+               if(!empty($connectErr) || !empty($subErr)) { ?> <p class="warning"><?= $connectErr . $subErr ?></p>
             <?php } ?>
 
 
@@ -138,9 +137,6 @@ $titre = 'Connexion GBAF';
 
 </section>
 
-<!-- FOOTER -->
-<?php include "template/footer.php"; ?>
-
 
 <script>
     function Afficher() {
@@ -152,3 +148,6 @@ $titre = 'Connexion GBAF';
         }
     }
 </script>
+
+<!-- FOOTER -->
+<?php include "template/footer.php"; ?>

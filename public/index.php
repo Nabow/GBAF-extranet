@@ -47,7 +47,7 @@
             <label for="recherche_nom">Rechercher : <input type="text" name="recherche_nom" id="recherche_nom"></label>
 
             <label for="trier">Trier :
-                <select name="trie">
+                <select name="trier" id="trier">
                     <!-- <option value="bonne-note">Mieux noté</option>
                             <option value="mauvaise-note">Moins bien noté</option> -->
                     <option value="acteur ASC" selected="selected">Croissant</option>

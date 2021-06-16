@@ -39,6 +39,13 @@ h1, h2, h3{
     text-transform: uppercase;
     text-align: center;
     color: $color-1;
+    word-break: break-word;
+}
+
+@media #{$small-up}{
+    h1, h2, h3{
+        word-break: normal;
+    }
 }
 
 h1{
@@ -78,9 +85,12 @@ input, select{
 
 .container {
     /* On ajoute une marge sur les cotés de l'écran */
-    padding: 0.8em 0.4em;
-    margin-left: rem(15px);
-    margin-right: rem(15px);
+
+    @media #{$small-up}{
+        padding: 0.8em 0.4em;
+        margin-left: rem(15px);
+        margin-right: rem(15px);
+    }
     /* Et on centre */
     @media #{$large-up}{
         margin-right: auto;

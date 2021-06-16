@@ -75,7 +75,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $compteErr === 0 && verifCompletion(
         if($user_data -> question === $question && strtolower($user_data -> reponse) === $reponse){
             requeteBdd(array_merge($Arr_email,$Arr_new_password),'UPDATE account SET password = :new_password WHERE email = :email');
             $success = "Votre mot de passe a été modifié avec succès !";
+        }else {
+          $compteErr = "Le réponse est incorrecte";
         }
+
         
     }
     

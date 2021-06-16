@@ -38,7 +38,7 @@
 
 
                 <!-- BOITE DE VOTE -->
-                <div class="vote" choix="<?= $class_vote_user ?>">
+                <div class="vote" id="choix-<?= $class_vote_user ?>">
                     <a href="article.php?vote=1&id_acteur=<?= $id_acteur ?>" class="vote-oui">
                         <svg class="icon">
                             <use xlink:href="svg/sprite.svg#vote-oui"></use>

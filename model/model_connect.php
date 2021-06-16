@@ -139,13 +139,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $compteErr === 0 && verifCompletion(
 
         $nb_email = requeteBdd($Arr_email,"SELECT * FROM account WHERE email= :email","rowCount");
 
+        // afficheTableau($nb_email);
+
         if ($nb_email === 0) {
-            $connectErr = "Cet email n'existe pas dans la base de données"; 	
+            $connectErr = "Cet email n'existe pas dans la base de données"; 
         } else{
             $query_email = requeteBdd($Arr_email,"SELECT * FROM account WHERE email= :email","fetch");
 
-            if(password_verify($password, $query_email -> password)){
+            // afficheTableau($query_email);
 
+            if(password_verify($password, $query_email -> password)){
+            
                 $id_user = $query_email -> id_user;
                 $name = $query_email -> nom;
                 $first_name = $query_email -> prenom;
@@ -165,8 +169,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $compteErr === 0 && verifCompletion(
 
 
     }
-    header('Location: index.php');
-    exit;
+    if(empty($subErr) && empty($connectErr)){
+        header('Location: index.php');
+    }
 }
 
 

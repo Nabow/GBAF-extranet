@@ -15,6 +15,7 @@
         href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
+    <!-- <script src="../../core/showpassword.js"></script> -->
     <!-- <script type="text/javascript" src="js/functions.js"></script> -->
     <title><?= $titre ?></title>
 </head>

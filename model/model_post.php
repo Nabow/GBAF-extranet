@@ -2,15 +2,22 @@
     include_once "../core/functions.php";
     include_once '../core/connect_bdd.php';
 
-    if (isset($_GET['id_acteur']) && isset($_COOKIE['id_user'])) {
+    if (isset($_GET['id_acteur'])) {
         $id_acteur = (int)$_GET['id_acteur'];
         $Arr_id_acteur = array('id_acteur' => $id_acteur);
-        $id_user = (int)$_COOKIE['id_user'];
-        $Arr_id_user = array('id_user' => $id_user);
-        $Arr_id_user_id_acteur = array_merge($Arr_id_user,$Arr_id_acteur);
 
+
+        if(requeteBdd($Arr_id_acteur,'SELECT * FROM post WHERE id_acteur = :id_acteur','rowCount') > 0 && isset($_COOKIE['id_user'])){
+
+                $id_user = (int)$_COOKIE['id_user'];
+                $Arr_id_user = array('id_user' => $id_user);
+                $Arr_id_user_id_acteur = array_merge($Arr_id_user,$Arr_id_acteur);
+            
+        } else { 
+            header('Location: connect.php') ;
+        }
     } else { 
-        reDirConnect(true) ;
+        header('Location: connect.php') ;
     }
 
 
@@ -22,15 +29,16 @@
         $Arr_vote = array_merge($Arr_id_user_id_acteur, ['vote' => $vote]);
 
 
-        if(requeteBdd($Arr_id_user,'SELECT * FROM vote WHERE id_user = :id_user','rowCount') > 0){
+        if(requeteBdd( $Arr_id_user_id_acteur ,'SELECT * FROM vote WHERE id_acteur = :id_acteur AND id_user = :id_user', 'rowCount') > 0){
             requeteBdd($Arr_vote,"UPDATE vote SET vote= :vote WHERE id_user = :id_user AND id_acteur = :id_acteur");
         } else {
             requeteBdd($Arr_vote,'INSERT INTO vote(id_user, id_acteur, vote) VALUES (:id_user, :id_acteur, :vote) ');
         }
     }
-    $modif_commentaire = requeteBdd( $Arr_id_user_id_acteur ,'SELECT * FROM post WHERE id_acteur = :id_acteur AND id_user = :id_user', 'rowCount',);
 
 
+
+    $modif_commentaire = requeteBdd( $Arr_id_user_id_acteur ,'SELECT * FROM post WHERE id_acteur = :id_acteur AND id_user = :id_user', 'rowCount');
 
     $post = $postErr = "";
     $compteErr = 0;
