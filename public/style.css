@@ -187,6 +187,13 @@ input, select {
   font-size: 0.8rem;
 }
 
+.success {
+  color: green;
+  font-style: italic;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
 /* DEFINITION DES VARIABLES */
 /* ------------------------HEADER------------------------ */
 .header-main {
@@ -203,10 +210,16 @@ input, select {
     flex-direction: row;
   }
 }
+.header-main ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.4em;
+}
 .header-main li, .header-main a {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   text-align: right;
 }
 .header-main li svg, .header-main a svg {

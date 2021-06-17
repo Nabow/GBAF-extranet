@@ -33,6 +33,10 @@
                 <?php  
                             if(verifIdConnexion()){ ?>
                 <li><?= $_COOKIE['first_name'] . " " . $_COOKIE['name'] ?></li>
+
+                <li><a href="../usersettings.php"><svg class="icon"><use xlink:href="../svg/sprite.svg#connecter"></use>
+                        </svg> Compte</a></li>
+
                 <li><a href="../disconnect.php"><svg class="icon">
                             <use xlink:href="../svg/sprite.svg#deconnecter"></use>
                         </svg> Se déconnecter</a></li>
