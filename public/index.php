@@ -60,8 +60,8 @@
         <article>
 
             <?php
-                if (isset($_POST['trie'])) {
-                    $ordre_tri = test_input($_POST['trie']) ;
+                if (isset($_POST['trier'])) {
+                    $ordre_tri = test_input($_POST['trier']) ;
                     
                     switch ($ordre_tri) {
                         case 'acteur DESC':
