@@ -1,1 +1,5 @@
 core/config.php
+
+.env
+
+/vendor/

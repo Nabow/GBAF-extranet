@@ -1,0 +1,13 @@
+{
+    "name": "raphael/gbaf",
+    "description": "GBAF est un extranet de d\u0000mo bas\u0000 sur le mod\u0000le d'un forum",
+    "require": {
+        "symfony/dotenv": "^5.3"
+    },
+    "authors": [
+        {
+            "name": "Raphael Huet de Froberville",
+            "email": "rdefrob@gmail.com"
+        }
+    ]
+}
